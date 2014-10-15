@@ -1,0 +1,35 @@
+<template xmlns="http://ws.apache.org/ns/synapse" name="syncContacts">
+	<parameter name="googlespreadsheet.username"/>
+	<parameter name="googlespreadsheet.password"/>
+	<parameter name="googlespreadsheet.spreadsheetName"/>
+	<parameter name="googlespreadsheet.worksheetName"/>
+	<parameter name="googlespreadsheet.batchEnable"/>
+	<parameter name="googlespreadsheet.batchSize"/>
+	<parameter name="salesforce.username"/> 
+	<parameter name="salesforce.password"/>
+	<parameter name="salesforce.batchSize"/>
+
+	<sequence>
+	 <salesforce.init>
+            <username>{get-property('func','salesforce.username')}</username>
+            <password>{get-property('func','salesforce.password')}</password>
+             <loginUrl>https://login.salesforce.com/services/Soap/u/27.0</loginUrl>
+         </salesforce.init>
+         <salesforce.query>
+            <batchSize>{get-property('func','salesforce.batchSize')}</batchSize>
+            <queryString>select id,name from Account</queryString>
+         </salesforce.query>
+         <xslt key="csvConverter.xslt"/>
+         <googlespreadsheet.usernameLogin>
+            <username>{get-property('func','googlespreadsheet.username')}</username>
+            <password>{get-property('func','googlespreadsheet.password')}</password>
+         </googlespreadsheet.usernameLogin>
+         <googlespreadsheet.importCSV>
+             <spreadsheetName>{get-property('func','googlespreadsheet.spreadsheetName')}</spreadsheetName>
+            <worksheetName>{get-property('func','googlespreadsheet.worksheetName')}</worksheetName>            
+            <batchEnable>{get-property('func','googlespreadsheet.batchEnable')}</batchEnable>
+            <batchSize>{get-property('func','googlespreadsheet.batchSize')}</batchSize>
+         </googlespreadsheet.importCSV>
+
+	</sequence>
+</template>
