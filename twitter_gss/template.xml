@@ -1,35 +1,46 @@
-<template xmlns="http://ws.apache.org/ns/synapse" name="syncContacts">
-	<parameter name="googlespreadsheet.username"/>
-	<parameter name="googlespreadsheet.password"/>
-	<parameter name="googlespreadsheet.spreadsheetName"/>
-	<parameter name="googlespreadsheet.worksheetName"/>
-	<parameter name="googlespreadsheet.batchEnable"/>
-	<parameter name="googlespreadsheet.batchSize"/>
-	<parameter name="salesforce.username"/> 
-	<parameter name="salesforce.password"/>
-	<parameter name="salesforce.batchSize"/>
-
-	<sequence>
-	 <salesforce.init>
-            <username>{get-property('func','salesforce.username')}</username>
-            <password>{get-property('func','salesforce.password')}</password>
-             <loginUrl>https://login.salesforce.com/services/Soap/u/27.0</loginUrl>
-         </salesforce.init>
-         <salesforce.query>
-            <batchSize>{get-property('func','salesforce.batchSize')}</batchSize>
-            <queryString>select id,name from Account</queryString>
-         </salesforce.query>
-         <xslt key="csvConverter.xslt"/>
-         <googlespreadsheet.usernameLogin>
-            <username>{get-property('func','googlespreadsheet.username')}</username>
-            <password>{get-property('func','googlespreadsheet.password')}</password>
-         </googlespreadsheet.usernameLogin>
-         <googlespreadsheet.importCSV>
-             <spreadsheetName>{get-property('func','googlespreadsheet.spreadsheetName')}</spreadsheetName>
-            <worksheetName>{get-property('func','googlespreadsheet.worksheetName')}</worksheetName>            
+<template xmlns="http://ws.apache.org/ns/synapse" name="SampleRecipe">
+    <parameter name="twitter.consumerKey"/>
+    <parameter name="twitter.consumerSecret"/>
+    <parameter name="twitter.accessToken"/>
+    <parameter name="twitter.accessTokenSecret"/>
+    <parameter name="twitter.search"/>
+    <parameter name="twitter.lang"/>
+    <parameter name="twitter.count"/>
+    <parameter name="googlespreadsheet.oauthConsumerKey"/>
+    <parameter name="googlespreadsheet.oauthConsumerSecret"/>
+    <parameter name="googlespreadsheet.oauthAccessToken"/>
+    <parameter name="googlespreadsheet.oauthRefreshToken"/>
+    <parameter name="googlespreadsheet.spreadsheetName"/>
+    <parameter name="googlespreadsheet.worksheetName"/>
+    <parameter name="googlespreadsheet.batchEnable"/>
+    <parameter name="googlespreadsheet.batchSize"/>
+    <sequence>
+        <twitter.init>
+            <consumerKey>{get-property('func','twitter.consumerKey')}</consumerKey>
+            <consumerSecret>{get-property('func','twitter.consumerSecret')}</consumerSecret>
+            <accessToken>{get-property('func','twitter.accessToken')}</accessToken>
+            <accessTokenSecret>{get-property('func','twitter.accessTokenSecret')}</accessTokenSecret>
+        </twitter.init>
+        <twitter.search>
+            <search>{get-property('func','twitter.search')}</search>
+            <lang>{get-property('func','twitter.lang')}</lang>
+            <count>{get-property('func','twitter.count')}</count>
+        </twitter.search>
+        <xslt key="gov:/recipeTransformations/twitter_gss_transformation"/>
+        <log level="full"/>
+        <googlespreadsheet.oAuth2init>
+            <oauthConsumerKey>{get-property('func','googlespreadsheet.oauthConsumerKey')}</oauthConsumerKey>
+            <oauthConsumerSecret>{get-property('func','googlespreadsheet.oauthConsumerSecret')}</oauthConsumerSecret>
+            <oauthAccessToken>{get-property('func','googlespreadsheet.oauthAccessToken')}</oauthAccessToken>
+            <oauthRefreshToken>{get-property('func','googlespreadsheet.oauthRefreshToken')}</oauthRefreshToken>
+        </googlespreadsheet.oAuth2init>
+        <googlespreadsheet.importCSV>
+            <spreadsheetName>{get-property('func','googlespreadsheet.spreadsheetName')}</spreadsheetName>
+            <worksheetName>{get-property('func','googlespreadsheet.worksheetName')}</worksheetName>
             <batchEnable>{get-property('func','googlespreadsheet.batchEnable')}</batchEnable>
             <batchSize>{get-property('func','googlespreadsheet.batchSize')}</batchSize>
-         </googlespreadsheet.importCSV>
-
-	</sequence>
+        </googlespreadsheet.importCSV>
+    </sequence>
 </template>
+
+
