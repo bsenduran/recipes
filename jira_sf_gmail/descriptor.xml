@@ -1,6 +1,6 @@
 <metadata>
     <overview>
-        <name>Safes Force to  Email</name>
+        <name>Salesforce to  Email</name>
         <version>1.0.0</version>
         <description>Get the email addres from the salesforce contacts and send an email</description>
         <thumbnail>thumb.png</thumbnail>

@@ -1,8 +1,8 @@
 <metadata>
     <overview>
-        <name>Send Tweets to email</name>
+        <name>Send Tweets to Email</name>
         <version>1.0.0</version>
-        <description>Find tweets for a given hash tag and send them to configured email</description>
+        <description>Find tweets for a given hash tag and send them to a configured email</description>
         <thumbnail>thumb.png</thumbnail>
         <banner>banner.png</banner>
     </overview>
@@ -25,8 +25,8 @@
         <icon>gmail.png</icon>
         <parametersdisplayname>Subject,To</parametersdisplayname>
         <parametersname>subject,to</parametersname>
-        <parameterseg>My Tweets,user@example.com</parameterseg>
-        <avroschema>gssschema.avsc</avroschema>
+        <parameterseg>News Tweets,user@example.com</parameterseg>
+        <avroschema>gmailschema.avsc</avroschema>
     </result>
 
 
