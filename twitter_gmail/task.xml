@@ -1,0 +1,18 @@
+<task xmlns="http://www.wso2.org/products/wso2commons/tasks" class="org.apache.synapse.startup.tasks.RecipeMessageExecutor" group="synapse.simple.quartz" name="RecipeTask2">
+  <trigger count="1" interval="100"/>
+  <property xmlns:task="http://www.wso2.org/products/wso2commons/tasks" name="recipeParams">
+    <salesforceGooglespreadsheet.syncContacts xmlns="">
+      <salesforce.username>malaka.silva@gmail.com</salesforce.username>
+      <salesforce.password>1234wso2CGyRNuBU8kwpX3whrtfPpneE</salesforce.password>
+      <salesforce.batchSize>5</salesforce.batchSize>
+      <googlespreadsheet.username>esbconnectors@gmail.com</googlespreadsheet.username>
+      <googlespreadsheet.password>wso2esb123</googlespreadsheet.password>
+      <googlespreadsheet.spreadsheetName>RecipeDemo</googlespreadsheet.spreadsheetName>
+      <googlespreadsheet.worksheetName>Recipe1</googlespreadsheet.worksheetName>
+      <googlespreadsheet.batchEnable>true</googlespreadsheet.batchEnable>
+      <googlespreadsheet.batchSize>10</googlespreadsheet.batchSize>
+    </salesforceGooglespreadsheet.syncContacts>
+  </property>
+  <property xmlns:task="http://www.wso2.org/products/wso2commons/tasks" name="recipeKey" value="gov:/recipeTemplates/sf_gss_template"/>
+</task>
+

@@ -1,0 +1,39 @@
+<template xmlns="http://ws.apache.org/ns/synapse" name="SampleRecipe">
+    <parameter name="twitter.consumerKey"/>
+    <parameter name="twitter.consumerSecret"/>
+    <parameter name="twitter.accessToken"/>
+    <parameter name="twitter.accessTokenSecret"/>
+    <parameter name="twitter.search"/>
+    <parameter name="twitter.lang"/>
+    <parameter name="twitter.count"/>
+    <parameter name="gmail.username"/>
+    <parameter name="gmail.oauthAccessToken"/>
+    <parameter name="gmail.subject"/>
+    <parameter name="gmail.to"/>
+    <sequence>
+        <twitter.init>
+            <consumerKey>{get-property('func','twitter.consumerKey')}</consumerKey>
+            <consumerSecret>{get-property('func','twitter.consumerSecret')}</consumerSecret>
+            <accessToken>{get-property('func','twitter.accessToken')}</accessToken>
+            <accessTokenSecret>{get-property('func','twitter.accessTokenSecret')}</accessTokenSecret>
+        </twitter.init>
+        <twitter.search>
+            <search>{get-property('func','twitter.search')}</search>
+            <lang>{get-property('func','twitter.lang')}</lang>
+            <count>{get-property('func','twitter.count')}</count>
+        </twitter.search>
+        <xslt key="gov:/recipeTransformations/twitter_gmail_transformation"/>
+        <log level="full"/>
+        <gmail.init>
+            <username>{get-property('func','gmail.username')}</username>
+            <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
+        </gmail.init>
+        <gmail.sendMail>
+            <subject>{get-property('func','gmail.subject')}</subject>
+            <toRecipients>{get-property('func','gmail.to')}</toRecipients>
+            <textContent>{$ctx:body}</textContent>
+        </gmail.sendMail>
+    </sequence>
+</template>
+
+
