@@ -1,0 +1,71 @@
+<template xmlns="http://ws.apache.org/ns/synapse" name="SampleRecipe">
+
+    <parameter name="salesforce.oauthConsumerKey"/>
+    <parameter name="salesforce.oauthConsumerSecret"/>
+    <parameter name="salesforce.oauthAccessToken"/>
+    <parameter name="salesforce.oauthRefreshToken"/>
+    <parameter name="salesforce.instanceUrl"/>
+    <parameter name="salesforce.name"/>
+
+    <parameter name="gmail.username"/>
+    <parameter name="gmail.oauthAccessToken"/>
+    <parameter name="gmail.subject"/>
+    <parameter name="gmail.content"/>
+
+    <parameter name="jira.username"/>
+    <parameter name="jira.password"/>
+    <parameter name="jira.uri"/>
+    <parameter name="jira.query"/>
+
+    <sequence>
+        <jira.init>
+            <username>{get-property('func','jira.username')}</username>
+            <password>{get-property('func','jira.password')}</password>
+            <uri>{get-property('func','jira.uri')}</uri>
+        </jira.init>
+        <jira.searchJira>
+            <query>{get-property('func','jira.query')}</query>
+            <maxResult>1</maxResult>
+            <startFrom>0</startFrom>
+        </jira.searchJira>
+
+        <xslt key="gov:/recipeTransformations/jira_sf_gmail_transformation"/>
+
+        <property xmlns:sf1="http://org.wso2.esbconnectors.salesforce"
+                  name="sfQuery"
+                  expression="//myquery"
+                  scope="default"
+                  type="STRING"/>
+
+        <salesforce.oAuth2init>
+            <oauthConsumerKey>{get-property('func','salesforce.oauthConsumerKey')}</oauthConsumerKey>
+            <oauthConsumerSecret>{get-property('func','salesforce.oauthConsumerSecret')}</oauthConsumerSecret>
+            <oauthAccessToken>{get-property('func','salesforce.oauthAccessToken')}</oauthAccessToken>
+            <oauthRefreshToken>{get-property('func','salesforce.oauthRefreshToken')}</oauthRefreshToken>
+            <instanceUrl>{get-property('func','salesforce.instanceUrl')}</instanceUrl>
+        </salesforce.oAuth2init>
+        <log level="custom">
+            <property name="log1" value="oAuth2init done"/>
+        </log>
+        <salesforce.apiQueryEngine>
+            <queryString>{$ctx:sfQuery}</queryString>
+        </salesforce.apiQueryEngine>
+        <property xmlns:sf1="http://org.wso2.esbconnectors.salesforce"
+                  name="toAddress"
+                  expression="//sf1:salesforceReadContactMessageResponse/sf1:contacts/sf1:contact/sf1:Email"
+                  scope="default"
+                  type="STRING"/>
+        <xslt key="gov:/recipeTransformations/twitter_gmail_transformation"/>
+        <gmail.init>
+            <username>{get-property('func','gmail.username')}</username>
+            <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
+        </gmail.init>
+        <gmail.sendMail>
+            <subject>{get-property('func','gmail.subject')}</subject>
+            <toRecipients>{$ctx:toAddress}</toRecipients>
+            <textContent>{get-property('func','gmail.content')}</textContent>
+        </gmail.sendMail>
+    </sequence>
+</template>
+
+
