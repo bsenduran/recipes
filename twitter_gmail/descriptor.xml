@@ -14,7 +14,7 @@
         <icon>twitter.png</icon>
         <parametersdisplayname>Hash tag, Language, Number of Result</parametersdisplayname>
         <parametersname>search,lang,count</parametersname>
-        <parameterseg>#happy,en,10</parameterseg>
+        <parameterseg>happy,en,10</parameterseg>
         <avroschema>twitterschema.avsc</avroschema>
     </ingredient>
 
@@ -26,7 +26,7 @@
         <parametersdisplayname>Subject,To</parametersdisplayname>
         <parametersname>subject,to</parametersname>
         <parameterseg>News Tweets,user@example.com</parameterseg>
-        <avroschema>gmailschema.avsc</avroschema>
+        <avroschema>schema.avsc</avroschema>
     </result>
 
 

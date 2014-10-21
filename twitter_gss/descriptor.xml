@@ -14,7 +14,7 @@
         <icon>twitter.png</icon>
         <parametersdisplayname>Hash tag, Language, Number of Result</parametersdisplayname>
         <parametersname>search,lang,count</parametersname>
-        <parameterseg>#happy,en,10</parameterseg>
+        <parameterseg>happy,en,10</parameterseg>
         <avroschema>twitterschema.avsc</avroschema>
     </ingredient>
 
@@ -26,7 +26,7 @@
         <parametersdisplayname>Spreadsheet Name, Work Sheet Name, Batch Enable, Batch Size</parametersdisplayname>
         <parametersname>spreadsheetName,worksheetName,batchEnable,batchSize</parametersname>
         <parameterseg>Tweets,Sheet1,true,100</parameterseg>
-        <avroschema>gssschema.avsc</avroschema>
+        <avroschema>schema.avsc</avroschema>
     </result>
 
 </metadata>

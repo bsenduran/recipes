@@ -1,0 +1,9 @@
+{"namespace": "org.apache.synapse",
+"type": "record",
+"name": "SynapseDataType",
+"fields": [
+	{"name": "out",  "type":{ "type": "record", "name": "OutputType", "fields": [
+                                                                         	{"name": "text", "type": "string"}
+                                                                       	]}}
+  ]
+}
