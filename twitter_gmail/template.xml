@@ -24,6 +24,14 @@
         </twitter.search>
         <xslt key="gov:/recipeTransformations/twitter_gmail_transformation"/>
         <log level="full"/>
+
+<property name="TEXT_BODY" expression="//soapenv:Body/ns1:text" xmlns:ns1="http://ws.apache.org/commons/ns/payload" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"/>
+
+<log level="custom">
+<property name="TEXT_BODY" expression="get-property('TEXT_BODY')"/>
+</log>
+
+
         <gmail.init>
             <username>{get-property('func','gmail.username')}</username>
             <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
@@ -31,9 +39,10 @@
         <gmail.sendMail>
             <subject>{get-property('func','gmail.subject')}</subject>
             <toRecipients>{get-property('func','gmail.to')}</toRecipients>
-            <textContent>{$ctx:body}</textContent>
+            <textContent>{$ctx:TEXT_BODY}</textContent>
         </gmail.sendMail>
     </sequence>
 </template>
+
 
 
