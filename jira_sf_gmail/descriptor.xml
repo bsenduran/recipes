@@ -1,6 +1,6 @@
 <metadata>
     <overview>
-        <name>Safes Force to  Email</name>
+        <name>JIRA Salesforce to Gmail</name>
         <version>1.0.0</version>
         <description>Get the email addres from the salesforce contacts and send an email</description>
         <thumbnail>thumb.png</thumbnail>
@@ -25,7 +25,7 @@
         <icon>salesforce.png</icon>
         <parametersdisplayname>Contact Name</parametersdisplayname>
         <parametersname>name</parametersname>
-        <parameterseg>Stephen Fleming</parameterseg>
+        <parameterseg>John Smith</parameterseg>
         <avroschema>sfschema.avsc</avroschema>
     </ingredient>
 
@@ -38,7 +38,7 @@
         <parametersdisplayname>Subject,Content</parametersdisplayname>
         <parametersname>subject,content</parametersname>
         <parameterseg>Account Expired,Your evaluation account expired</parameterseg>
-        <avroschema>gmailschema.avsc</avroschema>
+        <avroschema>schema.avsc</avroschema>
     </result>
 
 

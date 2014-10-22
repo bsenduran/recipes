@@ -1,8 +1,8 @@
 <metadata>
     <overview>
-        <name>Save Tweets in Spread Sheet</name>
+        <name>Save Tweets in Spreadsheet</name>
         <version>1.0.0</version>
-        <description>Find tweets for a given hash tag and save them in the Google Spread sheet</description>
+        <description>Find tweets for a given hash tag and save them in the Google Spreadsheet</description>
         <thumbnail>thumb.png</thumbnail>
         <banner>banner.png</banner>
     </overview>
@@ -14,19 +14,19 @@
         <icon>twitter.png</icon>
         <parametersdisplayname>Hash tag, Language, Number of Result</parametersdisplayname>
         <parametersname>search,lang,count</parametersname>
-        <parameterseg>#happy,en,10</parameterseg>
+        <parameterseg>happy,en,10</parameterseg>
         <avroschema>twitterschema.avsc</avroschema>
     </ingredient>
 
     <result>
-        <connectordisplayname>Google Spread Sheet</connectordisplayname>
+        <connectordisplayname>Google Spreadsheet</connectordisplayname>
         <connectorname>googlespreadsheet</connectorname>
-        <operation>Set Spread Sheet Details</operation>
+        <operation>Set Spreadsheet Details</operation>
         <icon>gss.png</icon>
-        <parametersdisplayname>Spread Sheet Name, Work Sheet Name, Batch Enable, Batch Size</parametersdisplayname>
+        <parametersdisplayname>Spreadsheet Name, Work Sheet Name, Batch Enable, Batch Size</parametersdisplayname>
         <parametersname>spreadsheetName,worksheetName,batchEnable,batchSize</parametersname>
         <parameterseg>Tweets,Sheet1,true,100</parameterseg>
-        <avroschema>gssschema.avsc</avroschema>
+        <avroschema>schema.avsc</avroschema>
     </result>
 
 </metadata>
