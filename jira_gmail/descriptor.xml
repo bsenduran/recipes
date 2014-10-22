@@ -1,0 +1,33 @@
+<metadata>
+    <overview>
+        <name>Jira to  Email</name>
+        <version>1.0.0</version>
+        <description>Send an email when a version date exceeds</description>
+        <thumbnail>thumb.png</thumbnail>
+        <banner>banner.png</banner>
+    </overview>
+
+    <ingredient>
+        <connectordisplayname>JIRA</connectordisplayname>
+        <connectorname>jira</connectorname>
+        <operation>Set JIRA Details</operation>
+        <icon>jira.png</icon>
+        <parametersdisplayname>Project key</parametersdisplayname>
+        <parametersname>key</parametersname>
+        <parameterseg>JAVAESB</parameterseg>
+        <avroschema>jiraschema.avsc</avroschema>
+    </ingredient>
+
+       <result>
+        <connectordisplayname>Gmail</connectordisplayname>
+        <connectorname>gmail</connectorname>
+        <operation>Set Gmail Details</operation>
+        <icon>gmail.png</icon>
+        <parametersdisplayname>To</parametersdisplayname>
+        <parametersname>to</parametersname>
+        <parameterseg>user@example.com</parameterseg>
+        <avroschema>gmailschema.avsc</avroschema>
+    </result>
+
+
+</metadata>
