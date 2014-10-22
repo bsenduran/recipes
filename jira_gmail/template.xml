@@ -1,0 +1,47 @@
+<template xmlns="http://ws.apache.org/ns/synapse" name="SampleRecipe">
+    <parameter name="gmail.username"/>
+    <parameter name="gmail.oauthAccessToken"/>
+    <parameter name="gmail.to"/>
+
+    <parameter name="jira.username"/>
+    <parameter name="jira.password"/>
+    <parameter name="jira.uri"/>
+    <parameter name="jira.key"/>
+
+    <sequence>
+        <jira.init>
+            <username>{get-property('func','jira.username')}</username>
+            <password>{get-property('func','jira.password')}</password>
+            <uri>{get-property('func','jira.uri')}</uri>
+        </jira.init>
+        <jira.getVersionsOfProject>
+            <projectKey>{get-property('func','jira.key')}</projectKey>
+        </jira.getVersionsOfProject>
+        <xslt key="gov:/recipeTransformations/jira_gmail_transformation"/>
+        <log level="full"/>
+        <switch xmlns:ns1="http://wso2.recipe/jira" source="//ns1:due">
+            <case regex="true">
+                <gmail.init>
+                    <username>{get-property('func','gmail.username')}</username>
+                    <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
+                </gmail.init>
+                <gmail.sendMail>
+                    <subject>Release Overdue</subject>
+                    <toRecipients>{get-property('func','gmail.to')}</toRecipients>
+                    <textContent>Your project has a over due release</textContent>
+                </gmail.sendMail>
+                <log level="custom">
+                    <property name="success" value="yes"/>
+                </log>
+            </case>
+            <default>
+                <log level="custom">
+                    <property name="default" value="yes"/>
+                </log>
+            </default>
+        </switch>
+
+    </sequence>
+</template>
+
+

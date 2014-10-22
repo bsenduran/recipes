@@ -1,0 +1,15 @@
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+    <xsl:output method="xml" indent="no" encoding="UTF-8"></xsl:output>
+
+    <xsl:template match="/">
+        <jira xmlns="http://ws.apache.org/ns/synapse" xmlns:ns1="http://wso2.recipe/jira">
+            <xsl:for-each select="//jsonArray/jsonElement">
+                <xsl:if test="overdue = 'true'">
+                    <ns1:due>true</ns1:due>
+                    <ns1:version> <xsl:value-of select="name"></xsl:value-of></ns1:version>
+                </xsl:if>
+            </xsl:for-each>
+        </jira>
+    </xsl:template>
+
+</xsl:stylesheet>
