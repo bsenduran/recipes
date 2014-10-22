@@ -19,7 +19,7 @@
         </jira.getVersionsOfProject>
         <xslt key="gov:/recipeTransformations/jira_gmail_transformation"/>
         <log level="full"/>
-        <switch xmlns:ns1="http://wso2.recipe/jira" source="//ns1:due">
+        <switch xmlns:ns1="http://wso2.recipe/jira" source="//ns1:due[1]">
             <case regex="true">
                 <gmail.init>
                     <username>{get-property('func','gmail.username')}</username>
