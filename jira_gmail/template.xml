@@ -18,6 +18,11 @@
             <projectKey>{get-property('func','jira.key')}</projectKey>
         </jira.getVersionsOfProject>
         <xslt key="gov:/recipeTransformations/jira_gmail_transformation"/>
+        <property xmlns:ns1="http://wso2.recipe/jira"
+                  name="emailContent"
+                  expression="fn:concat('Your Project has a overdue release for version : ',//ns1:version[1])"
+                  scope="default"
+                  type="STRING"/>
         <log level="full"/>
         <switch xmlns:ns1="http://wso2.recipe/jira" source="//ns1:due[1]">
             <case regex="true">
@@ -28,7 +33,7 @@
                 <gmail.sendMail>
                     <subject>Release Overdue</subject>
                     <toRecipients>{get-property('func','gmail.to')}</toRecipients>
-                    <textContent>Your project has a over due release</textContent>
+                    <textContent>{$ctx:emailContent}</textContent>
                 </gmail.sendMail>
                 <log level="custom">
                     <property name="success" value="yes"/>

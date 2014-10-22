@@ -14,7 +14,7 @@
         <icon>jira.png</icon>
         <parametersdisplayname>Project key</parametersdisplayname>
         <parametersname>key</parametersname>
-        <parameterseg>JAVAESB</parameterseg>
+        <parameterseg>ESBJAVA</parameterseg>
         <avroschema>jiraschema.avsc</avroschema>
     </ingredient>
 
