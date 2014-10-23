@@ -101,7 +101,7 @@
                <gmail.sendMail>
                   <subject>{get-property('func','gmail.subject')}</subject>
                   <toRecipients>{get-property('LEAD_EMAIL')}</toRecipients>
-                  <textContent>This is reminding that your account evaluation period</textContent>
+                  <textContent>{get-property('func','gmail.content')}</textContent>
                </gmail.sendMail>
             </then>
             <else/>

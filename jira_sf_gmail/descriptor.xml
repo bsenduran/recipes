@@ -23,7 +23,7 @@
         <connectorname>salesforce</connectorname>
         <operation>Set Salesforce Details</operation>
         <icon>salesforce.png</icon>
-        <parametersdisplayname>Contact Name</parametersdisplayname>
+        <parametersdisplayname>Batch Size</parametersdisplayname>
         <parametersname>batchsize</parametersname>
         <parameterseg>5</parameterseg>
         <avroschema>sfschema.avsc</avroschema>
