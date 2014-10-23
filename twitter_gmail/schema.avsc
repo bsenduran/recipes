@@ -3,7 +3,7 @@
 "name": "SynapseDataType",
 "fields": [
 	{"name": "out",  "type":{ "type": "record", "name": "OutputType", "fields": [
-                                                                         	{"name": "text",  "type": ["string", "null"]}
+                                                                         	{"name": "twitter_hashtag",  "type": ["string", "null"]}
                                                                        	]}}
   ]
 }

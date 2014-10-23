@@ -12,9 +12,9 @@
         <connectorname>jira</connectorname>
         <operation>Set JIRA Details</operation>
         <icon>jira.png</icon>
-        <parametersdisplayname>Query</parametersdisplayname>
+        <parametersdisplayname>Project Key</parametersdisplayname>
         <parametersname>query</parametersname>
-        <parameterseg>encoded jql</parameterseg>
+        <parameterseg>REC</parameterseg>
         <avroschema>jiraschema.avsc</avroschema>
     </ingredient>
 
@@ -24,8 +24,8 @@
         <operation>Set Salesforce Details</operation>
         <icon>salesforce.png</icon>
         <parametersdisplayname>Contact Name</parametersdisplayname>
-        <parametersname>name</parametersname>
-        <parameterseg>John Smith</parameterseg>
+        <parametersname>batchsize</parametersname>
+        <parameterseg>5</parameterseg>
         <avroschema>sfschema.avsc</avroschema>
     </ingredient>
 

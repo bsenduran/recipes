@@ -22,6 +22,9 @@
             <lang>{get-property('func','twitter.lang')}</lang>
             <count>{get-property('func','twitter.count')}</count>
         </twitter.search>
+
+<property name="twitter_hashtag" expression="//jsonObject/search_metadata/query/text()" scope="default" type="STRING"/>
+
         <xslt key="gov:/recipeTransformations/twitter_gmail_transformation"/>
         <log level="full"/>
 

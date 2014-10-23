@@ -5,7 +5,7 @@
     <parameter name="salesforce.oauthAccessToken"/>
     <parameter name="salesforce.oauthRefreshToken"/>
     <parameter name="salesforce.instanceUrl"/>
-    <parameter name="salesforce.name"/>
+    <parameter name="salesforce.batchsize"/>
 
     <parameter name="gmail.username"/>
     <parameter name="gmail.oauthAccessToken"/>
@@ -23,48 +23,94 @@
             <password>{get-property('func','jira.password')}</password>
             <uri>{get-property('func','jira.uri')}</uri>
         </jira.init>
-        <jira.searchJira>
-            <query>{get-property('func','jira.query')}</query>
-            <maxResult>1</maxResult>
-            <startFrom>0</startFrom>
-        </jira.searchJira>
+        
+	<jira.getProject>
+            <projectKey>{get-property('func','jira.query')}</projectKey>
+         </jira.getProject>
 
-        <xslt key="gov:/recipeTransformations/jira_sf_gmail_transformation"/>
+         <property name="DESC"
+                   expression="//jsonObject/description/text()"
+                   scope="default"
+                   type="STRING"/>
+         <property name="PROJECT_KEY"
+                   expression="//jsonObject/key/text()"
+                   scope="default"
+                   type="STRING"/>
+         <property name="LEAD_NAME"
+                   expression="//jsonObject/lead/name/text()"
+                   scope="default"
+                   type="STRING"/>
+         <property name="CLOSING_DATE"
+                   expression="fn:substring-after(get-property('DESC'),':')"/>
+         <property name="TODAY" expression="get-property('SYSTEM_DATE', 'yyyy/MM/dd')"/>
+         <property name="EXPIRED"
+                   expression="number(translate(get-property('CLOSING_DATE'),'/','')) &lt; number(translate(get-property('TODAY'),'/',''))"/>
+         <log level="custom">
+            <property name="LEAD_NAME" expression="get-property('LEAD_NAME')"/>
+            <property name="TODAY" expression="get-property('TODAY')"/>
+            <property name="CLOSING_DATE" expression="get-property('CLOSING_DATE')"/>
+            <property name="EXPIRED" expression="get-property('EXPIRED')"/>
+         </log>
+         <filter source="get-property('EXPIRED')" regex="true">
+            <then>
+               <salesforce.oAuth2init>
+               		<oauthConsumerKey>{get-property('func','salesforce.oauthConsumerKey')}</oauthConsumerKey>
+            		<oauthConsumerSecret>{get-property('func','salesforce.oauthConsumerSecret')}</oauthConsumerSecret>
+            		<oauthAccessToken>{get-property('func','salesforce.oauthAccessToken')}</oauthAccessToken>
+            		<oauthRefreshToken>{get-property('func','salesforce.oauthRefreshToken')}</oauthRefreshToken>
+            		<instanceUrl>{get-property('func','salesforce.instanceUrl')}</instanceUrl>
+               </salesforce.oAuth2init>
+               <log level="custom">
+                  <property name="logInit" value="oAuth2init done"/>
+               </log>
 
-        <property xmlns:sf1="http://org.wso2.esbconnectors.salesforce"
-                  name="sfQuery"
-                  expression="//myquery"
-                  scope="default"
-                  type="STRING"/>
+<property name="LEAD_NAME" expression="get-property('LEAD_NAME')"/>
+         <property name="QUERY"
+                   value="SELECT Name, Email FROM Contact WHERE Name='"
+                   scope="default"
+                   type="STRING"/>
+         <property name="END_STRING" value="'" scope="default" type="STRING"/>
+         <property name="QUERY_STRING_FINAL"
+                   expression="fn:concat(get-property('QUERY'),get-property('LEAD_NAME'),get-property('END_STRING'))"
+                   scope="default"
+                   type="STRING"/>
+         <log  level="custom">
+            <property name="FINAL_STRING" expression="get-property('QUERY_STRING_FINAL')"/>
+         </log>
 
-        <salesforce.oAuth2init>
-            <oauthConsumerKey>{get-property('func','salesforce.oauthConsumerKey')}</oauthConsumerKey>
-            <oauthConsumerSecret>{get-property('func','salesforce.oauthConsumerSecret')}</oauthConsumerSecret>
-            <oauthAccessToken>{get-property('func','salesforce.oauthAccessToken')}</oauthAccessToken>
-            <oauthRefreshToken>{get-property('func','salesforce.oauthRefreshToken')}</oauthRefreshToken>
-            <instanceUrl>{get-property('func','salesforce.instanceUrl')}</instanceUrl>
-        </salesforce.oAuth2init>
-        <log level="custom">
-            <property name="log1" value="oAuth2init done"/>
-        </log>
-        <salesforce.apiQueryEngine>
-            <queryString>{$ctx:sfQuery}</queryString>
-        </salesforce.apiQueryEngine>
-        <property xmlns:sf1="http://org.wso2.esbconnectors.salesforce"
-                  name="toAddress"
-                  expression="//sf1:salesforceReadContactMessageResponse/sf1:contacts/sf1:contact/sf1:Email"
-                  scope="default"
-                  type="STRING"/>
-        <xslt key="gov:/recipeTransformations/twitter_gmail_transformation"/>
-        <gmail.init>
-            <username>{get-property('func','gmail.username')}</username>
-            <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
-        </gmail.init>
-        <gmail.sendMail>
-            <subject>{get-property('func','gmail.subject')}</subject>
-            <toRecipients>{$ctx:toAddress}</toRecipients>
-            <textContent>{get-property('func','gmail.content')}</textContent>
-        </gmail.sendMail>
+
+
+
+
+               <salesforce.queryContactByName>
+                  <queryString>{get-property('QUERY_STRING_FINAL')}</queryString>
+               </salesforce.queryContactByName>
+               <log level="full"/>
+               <gmail.init>
+            		<username>{get-property('func','gmail.username')}</username>
+            		<oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
+        	</gmail.init>
+               <property xmlns:ns="http://org.wso2.esbconnectors.salesforce"
+                         xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                         name="LEAD_EMAIL"
+                         expression="//soapenv:Body/ns:salesforceGetContactByNameResponse/ns:contacts/ns:contact/ns:Email/text()"/>
+               <log level="custom">
+                  <property name="LEAD_EMAIL" expression="get-property('LEAD_EMAIL')"/>
+               </log>
+
+               <gmail.sendMail>
+                  <subject>{get-property('func','gmail.subject')}</subject>
+                  <toRecipients>{get-property('LEAD_EMAIL')}</toRecipients>
+                  <textContent>This is reminding that your account evaluation period</textContent>
+               </gmail.sendMail>
+            </then>
+            <else/>
+         </filter>
+
+
+
+
+       
     </sequence>
 </template>
 
