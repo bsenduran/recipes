@@ -1,6 +1,6 @@
 <metadata>
     <overview>
-        <name>Find expired accounts from JIRA get details from Salesforce and send Email</name>
+        <name>Find expired accounts using Spreadsheet and JIRA to get details from Salesforce and send Email</name>
         <version>1.0.0</version>
         <description>JIRA Salesforce to Gmail</description>
         <thumbnail>thumb.png</thumbnail>

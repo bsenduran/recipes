@@ -1,8 +1,8 @@
 <metadata>
     <overview>
-        <name>Jira to  Email</name>
+        <name>Send Email when JIRA project overdue</name>
         <version>1.0.0</version>
-        <description>Send an email when a version date exceeds</description>
+        <description>Jira to  Email</description>
         <thumbnail>thumb.png</thumbnail>
         <banner>banner.png</banner>
     </overview>

@@ -1,8 +1,8 @@
 <metadata>
     <overview>
-        <name>Save Tweets in Spreadsheet</name>
+        <name>Search Tweets for hash tag and save in Spreadsheet</name>
         <version>1.0.0</version>
-        <description>Find tweets for a given hash tag and save them in the Google Spreadsheet</description>
+        <description>Save Tweets in Spreadsheet</description>
         <thumbnail>thumb.png</thumbnail>
         <banner>banner.png</banner>
     </overview>

@@ -1,0 +1,9 @@
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+    <xsl:template match="/">
+
+        <myquery>
+            SELECT Name,Email FROM Contact WHERE Name='<xsl:value-of select="fname"></xsl:value-of>'
+        </myquery>
+    </xsl:template>
+
+</xsl:stylesheet>

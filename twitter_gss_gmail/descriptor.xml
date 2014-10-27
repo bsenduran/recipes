@@ -1,8 +1,8 @@
 <metadata>
     <overview>
-        <name>Save Tweets Send mail</name>
+        <name>Search Tweets for hash tag then send Email and save in Spreadsheet</name>
         <version>1.0.0</version>
-        <description>Find tweets for a given hash tag and save them in the Google Spreadsheet and send an email</description>
+        <description>Save Tweets Send mail</description>
         <thumbnail>thumb.png</thumbnail>
         <banner>banner.png</banner>
     </overview>
