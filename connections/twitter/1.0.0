@@ -1,0 +1,10 @@
+{
+"name": "twitter",
+"attributes": {
+"overview_name": "twitter",
+"overview_version": "1.0.0",
+"overview_displayname": "Twitter",
+"overview_description": "Twitter Connection",
+"overview_thumbnail": "thumb.png"
+}
+}

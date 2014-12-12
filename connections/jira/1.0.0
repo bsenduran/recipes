@@ -1,0 +1,10 @@
+{
+"name": "jira",
+"attributes": {
+"overview_name": "jira",
+"overview_version": "1.0.0",
+"overview_displayname": "JIRA",
+"overview_description": "JIRA Connection",
+"overview_thumbnail": "thumb.png"
+}
+}

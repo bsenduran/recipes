@@ -1,0 +1,10 @@
+{
+"name": "salesforce",
+"attributes": {
+"overview_name": "salesforce",
+"overview_version": "1.0.0",
+"overview_displayname": "Salesforce",
+"overview_description": "Salesforce Connection",
+"overview_thumbnail": "thumb.png"
+}
+}
