@@ -5,6 +5,6 @@
 "overview_version": "1.0.0",
 "overview_displayname": "Google Spreadsheet",
 "overview_description": "Google Spreadsheet Connection",
-"overview_thumbnail": "thumb.png"
+"overview_thumbnail": "https://raw.githubusercontent.com/bsenduran/recipes/master/connections-images/gss.png"
 }
 }
