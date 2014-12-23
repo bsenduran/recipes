@@ -2,8 +2,13 @@
 "type": "record",
 "name": "SynapseDataType",
 "fields": [
+	{"name": "in", "type":{ "type": "record", "name": "InputType", "fields": [
+                                         	{"name": "spreadsheetName", "type": "string"},
+                                         	{"name": "worksheetCount",  "type": ["int", "null"]}
+                                       	]}},
 	{"name": "out",  "type":{ "type": "record", "name": "OutputType", "fields": [
-                                                                         	{"name": "text", "type": "string"}
+                                                                         	{"name": "result", "type": "string"},{"name": "spreadsheetName", "type": "string"},
+                                         	{"name": "worksheetCount",  "type": ["int", "null"]}
                                                                        	]}}
   ]
 }
