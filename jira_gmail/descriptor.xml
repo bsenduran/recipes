@@ -26,7 +26,7 @@
         <parametersdisplayname>To</parametersdisplayname>
         <parametersname>to</parametersname>
         <parameterseg>user@example.com</parameterseg>
-        <avroschema>gmailschema.avsc</avroschema>
+        <avroschema>schema.avsc</avroschema>
     </result>
 
 

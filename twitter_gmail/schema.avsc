@@ -2,7 +2,7 @@
 "type": "record",
 "name": "SynapseDataType",
 "fields": [
-	{"name": "out",  "type":{ "type": "record", "name": "OutputType", "fields": [
+	{"name": "out",  "type":{ "type": "xml", "name": "OutputType", "fields": [
                                                                          	{"name": "twitter_hashtag",  "type": ["string", "null"]}
                                                                        	]}}
   ]
