@@ -7,7 +7,7 @@
     <parameter name="salesforce.instanceUrl"/>
     <parameter name="salesforce.batchsize"/>
 
-    <parameter name="gmail.username"/>
+    <parameter name="gmail.receiver"/>
     <parameter name="gmail.oauthAccessToken"/>
     <parameter name="gmail.subject"/>
     <parameter name="gmail.content"/>
@@ -60,7 +60,7 @@
 
 
        <gmail.init>
-      		<username>{get-property('func','gmail.username')}</username>
+      		<username>{get-property('func','gmail.receiver')}</username>
       		<oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
 	     </gmail.init>
 
