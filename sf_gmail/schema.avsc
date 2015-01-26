@@ -1,0 +1,10 @@
+{"namespace": "org.apache.synapse",
+"type": "record",
+"name": "SynapseDataType",
+"fields": [
+	{"name": "out",  "type":{ "type": "xml", "name": "OutputType", "fields": [
+                                                                         	{"name": "userid", "type": "string"},{"name": "spreadsheetName222", "type": "string"},
+                                         	{"name": "worksheetCount",  "type": ["int", "null"]}
+                                                                       	]}}
+  ]
+}

@@ -1,0 +1,34 @@
+<metadata>
+    <overview>
+        <name>Notify me when new account created</name>
+        <version>1.0.0</version>
+        <description>Notify when there's a new Salesforce account to GMail account</description>
+        <thumbnail>thumb.png</thumbnail>
+        <banner>banner.png</banner>
+    </overview>
+
+    <ingredient>
+        <connectordisplayname>Salesforce</connectordisplayname>
+        <connectorname>salesforce</connectorname>
+        <operation>Set Salesforce Details</operation>
+        <icon>salesforce.png</icon>
+        <parametersdisplayname>Batch Size</parametersdisplayname>
+        <parametersname>batchsize</parametersname>
+        <parameterseg>5</parameterseg>
+        <avroschema>sfschema.avsc</avroschema>
+    </ingredient>
+
+
+    <result>
+        <connectordisplayname>Gmail</connectordisplayname>
+        <connectorname>gmail</connectorname>
+        <operation>Set Gmail Details</operation>
+        <icon>gmail.png</icon>
+        <parametersdisplayname>Subject,Content</parametersdisplayname>
+        <parametersname>subject,content</parametersname>
+        <parameterseg>Account Expired,Your evaluation account expired</parameterseg>
+        <avroschema>schema.avsc</avroschema>
+    </result>
+
+
+</metadata>
