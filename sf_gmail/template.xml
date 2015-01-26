@@ -7,11 +7,11 @@
     <parameter name="salesforce.instanceUrl"/>
     <parameter name="salesforce.batchsize"/>
 
-    <parameter name="gmail.receiver"/>
+    <parameter name="gmail.username"/>
     <parameter name="gmail.oauthAccessToken"/>
     <parameter name="gmail.subject"/>
     <parameter name="gmail.content"/>
-
+    <parameter name="gmail.receiver"/>
 
     <sequence>
        
@@ -60,14 +60,14 @@
 
 
        <gmail.init>
-      		<username>{get-property('func','gmail.receiver')}</username>
+      		<username>{get-property('func','gmail.username')}</username>
       		<oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
 	     </gmail.init>
 
 
        <gmail.sendMail>
           <subject>{get-property('func','gmail.subject')}</subject>
-          <toRecipients>{get-property('func','gmail.username')}</toRecipients>
+          <toRecipients>{get-property('func','gmail.receiver')}</toRecipients>
           <textContent>{get-property('EMAIL_BODY')}</textContent>
        </gmail.sendMail>
             
