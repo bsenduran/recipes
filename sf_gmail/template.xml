@@ -14,98 +14,63 @@
 
 
     <sequence>
-        <jira.init>
-            <username>{get-property('func','jira.username')}</username>
-            <password>{get-property('func','jira.password')}</password>
-            <uri>{get-property('func','jira.uri')}</uri>
-        </jira.init>
-        
-	<jira.getProject>
-            <projectKey>{get-property('func','jira.query')}</projectKey>
-         </jira.getProject>
+       
 
-         <property name="DESC"
-                   expression="//jsonObject/description/text()"
-                   scope="default"
-                   type="STRING"/>
-         <property name="PROJECT_KEY"
-                   expression="//jsonObject/key/text()"
-                   scope="default"
-                   type="STRING"/>
-         <property name="LEAD_NAME"
-                   expression="//jsonObject/lead/name/text()"
-                   scope="default"
-                   type="STRING"/>
-         <property name="CLOSING_DATE"
-                   expression="fn:substring-after(get-property('DESC'),':')"/>
-         <property name="TODAY" expression="get-property('SYSTEM_DATE', 'yyyy/MM/dd')"/>
-         <property name="EXPIRED"
-                   expression="number(translate(get-property('CLOSING_DATE'),'/','')) &lt; number(translate(get-property('TODAY'),'/',''))"/>
-         <log level="custom">
-            <property name="LEAD_NAME" expression="get-property('LEAD_NAME')"/>
-            <property name="TODAY" expression="get-property('TODAY')"/>
-            <property name="CLOSING_DATE" expression="get-property('CLOSING_DATE')"/>
-            <property name="EXPIRED" expression="get-property('EXPIRED')"/>
-         </log>
-         <filter source="get-property('EXPIRED')" regex="true">
-            <then>
-               <salesforce.oAuth2init>
-               		<oauthConsumerKey>{get-property('func','salesforce.oauthConsumerKey')}</oauthConsumerKey>
-            		<oauthConsumerSecret>{get-property('func','salesforce.oauthConsumerSecret')}</oauthConsumerSecret>
-            		<oauthAccessToken>{get-property('func','salesforce.oauthAccessToken')}</oauthAccessToken>
-            		<oauthRefreshToken>{get-property('func','salesforce.oauthRefreshToken')}</oauthRefreshToken>
-            		<instanceUrl>{get-property('func','salesforce.instanceUrl')}</instanceUrl>
-               </salesforce.oAuth2init>
-               <log level="custom">
-                  <property name="logInit" value="oAuth2init done"/>
-               </log>
+       <salesforce.oAuth2init>
+         	<oauthConsumerKey>{get-property('func','salesforce.oauthConsumerKey')}</oauthConsumerKey>
+      		<oauthConsumerSecret>{get-property('func','salesforce.oauthConsumerSecret')}</oauthConsumerSecret>
+      		<oauthAccessToken>{get-property('func','salesforce.oauthAccessToken')}</oauthAccessToken>
+      		<oauthRefreshToken>{get-property('func','salesforce.oauthRefreshToken')}</oauthRefreshToken>
+      		<instanceUrl>{get-property('func','salesforce.instanceUrl')}</instanceUrl>
+       </salesforce.oAuth2init>
+       
 
-<property name="LEAD_NAME" expression="get-property('LEAD_NAME')"/>
-         <property name="QUERY"
-                   value="SELECT Name, Email FROM Contact WHERE Name='"
-                   scope="default"
-                   type="STRING"/>
-         <property name="END_STRING" value="'" scope="default" type="STRING"/>
-         <property name="QUERY_STRING_FINAL"
-                   expression="fn:concat(get-property('QUERY'),get-property('LEAD_NAME'),get-property('END_STRING'))"
-                   scope="default"
-                   type="STRING"/>
-         <log  level="custom">
-            <property name="FINAL_STRING" expression="get-property('QUERY_STRING_FINAL')"/>
-         </log>
+       <log level="custom">
+          <property name="logInit" value="Salesforce - OAuth2_init done"/>
+       </log>
+
+       <log level="full"/>
+
+      <salesforce.queryAccount>
+        <queryString>SELECT Name, Id, AnnualRevenue from Account where CreatedDate > 2014-11-28T01:02:03Z</queryString>
+      </salesforce.queryAccount>
+              
+      <log level="custom">
+            <property name="QUERY SF" value="Salesforce - QUERY done"/>
+       </log>
+
+      <log level="full"/>
 
 
+      <property name="NEW_NAME"
+                         expression="$body//Name"
+                         scope="default"
+                         type="STRING"/>
+
+      <property name="NEW_PHONE"
+                         expression="$body//Phone"
+                         scope="default"
+                         type="STRING"/>
 
 
-
-               <salesforce.queryContactByName>
-                  <queryString>{get-property('QUERY_STRING_FINAL')}</queryString>
-               </salesforce.queryContactByName>
-               <log level="full"/>
-               <gmail.init>
-            		<username>{get-property('func','gmail.username')}</username>
-            		<oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
-        	</gmail.init>
-               <property xmlns:ns="http://org.wso2.esbconnectors.salesforce"
-                         xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
-                         name="LEAD_EMAIL"
-                         expression="//soapenv:Body/ns:salesforceGetContactByNameResponse/ns:contacts/ns:contact/ns:Email/text()"/>
-               <log level="custom">
-                  <property name="LEAD_EMAIL" expression="get-property('LEAD_EMAIL')"/>
-               </log>
-
-               <gmail.sendMail>
-                  <subject>{get-property('func','gmail.subject')}</subject>
-                  <toRecipients>{get-property('LEAD_EMAIL')}</toRecipients>
-                  <textContent>{get-property('func','gmail.content')}</textContent>
-               </gmail.sendMail>
-            </then>
-            <else/>
-         </filter>
+      <property name="EMAIL_BODY"
+                         expression="fn:concat(get-property('func','gmail.content'),get-property('NEW_NAME'), ' , ', get-property('NEW_PHONE'))"
+                         scope="default"
+                         type="STRING"/>
 
 
+       <gmail.init>
+      		<username>{get-property('func','gmail.username')}</username>
+      		<oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
+	     </gmail.init>
 
 
+       <gmail.sendMail>
+          <subject>{get-property('func','gmail.subject')}</subject>
+          <toRecipients>{get-property('func','gmail.username')}</toRecipients>
+          <textContent>{get-property('EMAIL_BODY')}</textContent>
+       </gmail.sendMail>
+            
        
     </sequence>
 </template>
