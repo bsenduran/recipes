@@ -3,8 +3,8 @@
 "name": "SynapseDataType",
 "fields": [
 	{"name": "out",  "type":{ "type": "xml", "name": "OutputType", "fields": [
-                                                                         	{"name": "userid", "type": "string"},{"name": "spreadsheetName222", "type": "string"},
-                                         	{"name": "worksheetCount",  "type": ["int", "null"]}
+                                                                         	{"name": "Id", "type": "string"},
+										{"name": "Name", "type": "string"}
                                                                        	]}}
   ]
 }

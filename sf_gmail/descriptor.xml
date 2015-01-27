@@ -24,9 +24,9 @@
         <connectorname>gmail</connectorname>
         <operation>Set Gmail Details</operation>
         <icon>gmail.png</icon>
-        <parametersdisplayname>Subject,Content</parametersdisplayname>
-        <parametersname>subject,content</parametersname>
-        <parameterseg>Account Expired,Your evaluation account expired</parameterseg>
+        <parametersdisplayname>Subject,Content,Receiver</parametersdisplayname>
+        <parametersname>subject,content,receiver</parametersname>
+        <parameterseg>New Account Created,New account has been created,someone@email.com</parameterseg>
         <avroschema>schema.avsc</avroschema>
     </result>
 
