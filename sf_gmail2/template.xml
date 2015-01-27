@@ -45,6 +45,8 @@
             <queryString>{$ctx:sfquery}</queryString>
          </salesforce.query>
 
+<log level="full"/>
+
 	 <xslt key="gov:/recipeTransformations/sf_gmail2_transformation"/>
 
          <property xmlns:ns="http://ws.apache.org/commons/ns/payload"
@@ -54,6 +56,9 @@
                  source="$body/ns:text/text()"
                  regex="^$">
             <then>
+		<log level="custom">
+			<property name="no new purchase found" value="true"/>
+		</log>
 	       <drop/>
             </then>
             <else>
@@ -69,6 +74,9 @@
                         <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
                 </gmail.init>
 
+		<log level="custom">
+			<property name="init gmail" value="done"/>
+		</log>
                <gmail.sendMail>
                   <subject>New Purchase</subject>
                   <toRecipients>{get-property('func','gmail.to')}</toRecipients>
