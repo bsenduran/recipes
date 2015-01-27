@@ -1,0 +1,10 @@
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:sf="urn:sobject.partner.soap.sforce.com" xmlns:sf0="urn:partner.soap.sforce.com" version="1.0">
+ <xsl:output method="text" indent="no" encoding="UTF-8"></xsl:output>
+ <xsl:template match="/">
+    <xsl:for-each select="//sf0:queryResponse/sf0:result/sf0:records">
+       <xsl:value-of select="sf:Name"></xsl:value-of>
+       <xsl:text>, </xsl:text>
+    </xsl:for-each>
+    <xsl:text></xsl:text>
+ </xsl:template>
+</xsl:stylesheet>
