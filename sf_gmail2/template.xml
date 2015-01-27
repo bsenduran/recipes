@@ -40,10 +40,10 @@
        </log>
 
 
-         <salesforce.query>
+         <salesforce.queryAccount>
             <batchSize>200</batchSize>
             <queryString>{$ctx:sfquery}</queryString>
-         </salesforce.query>
+         </salesforce.queryAccount>
 
 <log level="full"/>
 
