@@ -23,7 +23,7 @@
 
          <script language="js">
 		var currentTime = new Date();
-		var oldTimemills = currentTime.setMinutes(currentTime.getMinutes() - 5);
+		var oldTimemills = currentTime.setMinutes(currentTime.getMinutes() - 20);
 		var d = new Date(oldTimemills);
 
 		 function doubleDigit(xx) {
