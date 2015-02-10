@@ -522,6 +522,11 @@ var engine = caramel.engine('handlebars', (function() {
                     return options.inverse(this);
                 }
             });
+	    Handlebars.registerHelper('tenentDomainInfo', function (uri, options) {
+                var carbon = require('carbon');
+		// Get tenent domain. eg: carbon.super
+		return carbon.server.tenantDomain();
+            });
             //=======================================================================================================
 
         },
