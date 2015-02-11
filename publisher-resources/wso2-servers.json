@@ -1,0 +1,21 @@
+{
+        "servers": {
+
+                "esb_server": {
+
+                        "host": "https://10.100.5.127",
+                        "port": "9449"
+
+                },
+                "is_server":{
+                    "host": "https://10.100.5.127",
+                        "port": "9444"
+
+                },
+                "es_server":{
+                    "host": "https://10.100.5.127",
+                        "port": "9447"
+
+                }
+            }
+}
