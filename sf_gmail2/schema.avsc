@@ -1,9 +1,0 @@
-{"namespace": "org.apache.synapse",
-"type": "record",
-"name": "SynapseDataType",
-"fields": [
-	{"name": "out",  "type":{ "type": "xml", "name": "OutputType", "fields": [
-                                                                         	{"name": "AccountCreator", "type": "string"},{"name": "AccountOwner", "type": "string"}
-                                                                       	]}}
-  ]
-}

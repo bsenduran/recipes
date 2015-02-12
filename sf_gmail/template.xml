@@ -5,73 +5,89 @@
     <parameter name="salesforce.oauthAccessToken"/>
     <parameter name="salesforce.oauthRefreshToken"/>
     <parameter name="salesforce.instanceUrl"/>
-    <parameter name="salesforce.batchsize"/>
+    <parameter name="salesforce.buyertype"/>
 
     <parameter name="gmail.username"/>
     <parameter name="gmail.oauthAccessToken"/>
-    <parameter name="gmail.subject"/>
-    <parameter name="gmail.content"/>
-    <parameter name="gmail.receiver"/>
+    <parameter name="gmail.to"/>
+
 
     <sequence>
-       
-
        <salesforce.oAuth2init>
-         	<oauthConsumerKey>{get-property('func','salesforce.oauthConsumerKey')}</oauthConsumerKey>
-      		<oauthConsumerSecret>{get-property('func','salesforce.oauthConsumerSecret')}</oauthConsumerSecret>
-      		<oauthAccessToken>{get-property('func','salesforce.oauthAccessToken')}</oauthAccessToken>
-      		<oauthRefreshToken>{get-property('func','salesforce.oauthRefreshToken')}</oauthRefreshToken>
-      		<instanceUrl>{get-property('func','salesforce.instanceUrl')}</instanceUrl>
+		<oauthConsumerKey>{get-property('func','salesforce.oauthConsumerKey')}</oauthConsumerKey>
+		<oauthConsumerSecret>{get-property('func','salesforce.oauthConsumerSecret')}</oauthConsumerSecret>
+		<oauthAccessToken>{get-property('func','salesforce.oauthAccessToken')}</oauthAccessToken>
+		<oauthRefreshToken>{get-property('func','salesforce.oauthRefreshToken')}</oauthRefreshToken>
+		<instanceUrl>{get-property('func','salesforce.instanceUrl')}</instanceUrl>
        </salesforce.oAuth2init>
-       
 
-       <log level="custom">
-          <property name="logInit" value="Salesforce - OAuth2_init done"/>
+         <script language="js">
+		var currentTime = new Date();
+		var oldTimemills = currentTime.setMinutes(currentTime.getMinutes() - 20);
+		var d = new Date(oldTimemills);
+
+		 function doubleDigit(xx) {
+			var yy = xx.toString();
+			return (yy.length == 1) ? "0"+yy : yy;
+		 };
+
+		var kk = d.getFullYear()+ "-" +  doubleDigit(d.getMonth()+1) + "-" +doubleDigit(d.getDate())+"T"+doubleDigit(d.getHours())+":"+doubleDigit(d.getMinutes())+":"+doubleDigit(d.getSeconds())+"+05:30" ;
+		var query = "select Name,type from Account WHERE type = 'Customer - Direct' and CreatedDate &gt; "+kk;
+		mc.setProperty("sfquery", query);
+	</script>       
+	<log level="custom">
+	  <property name="logInit" value="oAuth2init done"/>
        </log>
 
-       <log level="full"/>
 
-      <salesforce.queryAccount>
-        <queryString>SELECT Name, Id, AnnualRevenue from Account where CreatedDate > 2014-11-28T01:02:03Z</queryString>
-      </salesforce.queryAccount>
-              
-      <log level="custom">
-            <property name="QUERY SF" value="Salesforce - QUERY done"/>
-       </log>
+         <salesforce.queryAccount>
+            <batchSize>200</batchSize>
+            <queryString>{$ctx:sfquery}</queryString>
+         </salesforce.queryAccount>
 
-      <log level="full"/>
+<log level="full"/>
 
+	 <xslt key="gov:/recipeTransformations/sf_gmail2_transformation"/>
 
-      <property name="NEW_NAME"
-                         expression="$body//Name"
-                         scope="default"
-                         type="STRING"/>
+         <property xmlns:ns="http://ws.apache.org/commons/ns/payload"
+                   name="strname"
+                   expression="$body/ns:text"/>
+         <filter xmlns:ns="http://ws.apache.org/commons/ns/payload"
+                 source="$body/ns:text/text()"
+                 regex="^$">
+            <then>
+		<log level="custom">
+			<property name="no new purchase found" value="true"/>
+		</log>
+	       <drop/>
+            </then>
+            <else>
+               <script language="js">
+			var str = mc.getProperty('strname');
+			var str2 = str.substring(0, str.length() -2);
+			var content = "Following Customer(s) purchased new Phone \n" + str2;
+			mc.setProperty("mailcontent", content);
+		</script>
 
-      <property name="NEW_PHONE"
-                         expression="$body//Phone"
-                         scope="default"
-                         type="STRING"/>
+               <gmail.init>
+                        <username>{get-property('func','gmail.username')}</username>
+                        <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
+                </gmail.init>
 
+		<log level="custom">
+			<property name="init gmail" value="done"/>
+		</log>
+               <gmail.sendMail>
+                  <subject>New Purchase</subject>
+                  <toRecipients>{get-property('func','gmail.to')}</toRecipients>
+                  <textContent>{$ctx:mailcontent}</textContent>
+               </gmail.sendMail>
 
-      <property name="EMAIL_BODY"
-                         expression="fn:concat(get-property('func','gmail.content'),get-property('NEW_NAME'), ' , ', get-property('NEW_PHONE'))"
-                         scope="default"
-                         type="STRING"/>
-
-
-       <gmail.init>
-      		<username>{get-property('func','gmail.username')}</username>
-      		<oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
-	     </gmail.init>
-
-
-       <gmail.sendMail>
-          <subject>{get-property('func','gmail.subject')}</subject>
-          <toRecipients>{get-property('func','gmail.receiver')}</toRecipients>
-          <textContent>{get-property('EMAIL_BODY')}</textContent>
-       </gmail.sendMail>
-            
-       
+               <log level="custom">
+                  <property name="email content" expression="get-property('mailcontent')"/>
+               </log>
+            </else>
+         </filter>
     </sequence>
 </template>
 

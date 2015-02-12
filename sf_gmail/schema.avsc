@@ -3,8 +3,7 @@
 "name": "SynapseDataType",
 "fields": [
 	{"name": "out",  "type":{ "type": "xml", "name": "OutputType", "fields": [
-                                                                         	{"name": "Id", "type": "string"},
-										{"name": "Name", "type": "string"}
+                                                                         	{"name": "AccountCreator", "type": "string"},{"name": "AccountOwner", "type": "string"}
                                                                        	]}}
   ]
 }

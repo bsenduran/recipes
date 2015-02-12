@@ -1,8 +1,8 @@
 <metadata>
     <overview>
-        <name>Notify me when new account created</name>
+        <name>Notify on a new purchase</name>
         <version>1.0.0</version>
-        <description>Notify when there's a new Salesforce account to GMail account</description>
+        <description>Sends an email to the configured email address, when a new purchase is taken place</description>
         <thumbnail>thumb.png</thumbnail>
         <banner>banner.png</banner>
     </overview>
@@ -12,9 +12,9 @@
         <connectorname>salesforce</connectorname>
         <operation>Set Salesforce Details</operation>
         <icon>salesforce.png</icon>
-        <parametersdisplayname>Batch Size</parametersdisplayname>
-        <parametersname>batchsize</parametersname>
-        <parameterseg>5</parameterseg>
+        <parametersdisplayname>Buyer Type</parametersdisplayname>
+        <parametersname>buyertype</parametersname>
+        <parameterseg>Customer - Direct</parameterseg>
         <avroschema>sfschema.avsc</avroschema>
     </ingredient>
 
@@ -24,9 +24,9 @@
         <connectorname>gmail</connectorname>
         <operation>Set Gmail Details</operation>
         <icon>gmail.png</icon>
-        <parametersdisplayname>Subject,Content,Receiver</parametersdisplayname>
-        <parametersname>subject,content,receiver</parametersname>
-        <parameterseg>New Account Created,New account has been created,someone@email.com</parameterseg>
+        <parametersdisplayname>To</parametersdisplayname>
+        <parametersname>to</parametersname>
+        <parameterseg>user@example.com</parameterseg>
         <avroschema>schema.avsc</avroschema>
     </result>
 
