@@ -1,0 +1,17 @@
+{
+  "path": "/home/senduran/Downloads/Connectors",
+  "connectors": {
+    "twitter": {
+      "name": "twitter-connector-1.0.0.zip",
+      "package": "org.wso2.carbon.connectors"
+    },
+    "gmail": {
+      "name": "gmail-connector-1.0.0.zip",
+      "package": "org.wso2.carbon.connector"
+    },
+    "googlespreadsheet": {
+      "name": "googlespreadsheet-connector-2.0.0.zip",
+      "package": "org.wso2.carbon.connectors"
+    }
+  }
+}
