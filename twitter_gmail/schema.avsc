@@ -3,7 +3,7 @@
 "name": "SynapseDataType",
 "fields": [
 	{"name": "out",  "type":{ "type": "xml", "name": "OutputType", "fields": [
-                                                                         	{"name": "twitter_hashtag",  "type": ["string", "null"]}
+                                                                         	{"name": "query",  "type": ["string", "null"]}
                                                                        	]}}
   ]
 }
