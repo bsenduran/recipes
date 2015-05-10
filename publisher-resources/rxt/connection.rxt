@@ -1,0 +1,41 @@
+<artifactType type="application/vnd.wso2-connection+xml" shortName="connection" singularLabel="Connection" pluralLabel="Connections" hasNamespace="false" iconSet="9">
+    <storagePath>/connections/@{name}/@{overview_version}</storagePath>
+	<nameAttribute>overview_name</nameAttribute>
+    <ui>
+        <list>
+            <column name="Name">
+                <data type="path" value="overview_name" href="/applications/@{name}"/>
+            </column>
+            <column name="Version">
+                <data type="path" value="overview_version" href="@{storagePath}"/>
+            </column>
+        </list>
+    </ui>
+    <content>
+        <table name="Overview">
+            <field type="text" required="true">
+                <name>Name</name>
+            </field>
+            <field type="text" required="true">
+                <name>DisplayName</name>
+            </field>
+            <field type="text" required="true">
+                <name>Version</name>
+            </field>
+	<field type="options" required="true">
+		<name>Authentication Type</name>
+		 <values>
+		  <value>oauth2</value>
+		  <value>oauth1</value>	
+		  <value>basic</value>		  	  
+		 </values>
+	</field>
+            <field type="text-area">
+                <name>Description</name>
+            </field>
+            <field type="text" url="true" required="true">
+                <name>Thumbnail</name>
+            </field>
+        </table>
+ </content>
+</artifactType>

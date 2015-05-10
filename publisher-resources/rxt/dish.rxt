@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<artifactType type="application/vnd.wso2-dish+xml" shortName="dish" singularLabel="Dish" pluralLabel="Dishes" hasNamespace="false" iconSet="5">
+    <storagePath>/dishes/@{name}</storagePath>
+    <nameAttribute>overview_name</nameAttribute>
+
+    <ui>
+        <list>
+            <column name="Name">
+                <data type="path" value="overview_name" href="@{storagePath}"/>
+            </column>
+            <column name="Version">
+                <data type="path" value="overview_version" href="@{storagePath}"/>
+            </column>
+        </list>
+    </ui>
+
+    <content>
+
+        <table name="Overview">
+            <field type="text" required="true">
+                <name>Name</name>
+            </field>
+            <field type="text" required="true">
+                <name>displayname</name>
+            </field>
+            <field type="text">
+                <name>Version</name>
+            </field>
+            <field type="text" required="true">
+                <name>Url</name>
+            </field>
+            <field type="text" required="true">
+                <name>recipename</name>
+            </field>
+            <field type="text-area">
+                <name>Description</name>
+            </field>
+            <field type="text">
+                <name>triggerinterval</name>
+            </field>
+            <field type="text">
+                <name>triggercount</name>
+            </field>
+            <field type="text" required="true">
+                <name>Thumbnail</name>
+            </field>
+            <field type="text" required="true">
+                <name>Banner</name>
+            </field>
+        </table>
+
+
+        <table name="Ingredient" columns="10" maxoccurs="unbounded">
+            <subheading>
+                <heading>connectordisplayname</heading>
+                <heading>connectorname</heading>
+                <heading>account</heading>
+                <heading>operation</heading>
+                <heading>icon</heading>
+                <heading>parametersdisplayname</heading>
+                <heading>parametersname</heading>
+                <heading>parameterseg</heading>
+                <heading>parametersvalue</heading>
+                <heading>avroschema</heading>
+            </subheading>
+            <field type="text">
+                <name label="connectordisplayname">connectordisplayname</name>
+            </field>
+            <field type="text">
+                <name label="connectorname">connectorname</name>
+            </field>
+            <field type="text">
+                <name label="account">account</name>
+            </field>
+            <field type="text">
+                <name label="operation">operation</name>
+            </field>
+            <field type="text">
+                <name label="icon">icon</name>
+            </field>
+            <field type="text">
+                <name label="parametersdisplayname">parametersdisplayname</name>
+            </field>
+            <field type="text">
+                <name label="parametersname">parametersname</name>
+            </field>
+            <field type="text">
+                <name label="parameterseg">parameterseg</name>
+            </field>
+            <field type="text">
+                <name label="parametersvalue">parametersvalue</name>
+            </field>
+            <field type="text">
+                <name label="avroschema">avroschema</name>
+            </field>
+        </table>
+
+        <table name="Result" columns="10" maxoccurs="unbounded">
+            <subheading>
+                <heading>connectordisplayname</heading>
+                <heading>connectorname</heading>
+                <heading>account</heading>
+                <heading>operation</heading>
+                <heading>icon</heading>
+                <heading>parametersdisplayname</heading>
+                <heading>parametersname</heading>
+                <heading>parameterseg</heading>
+                <heading>parametersvalue</heading>
+                <heading>avroschema</heading>
+            </subheading>
+            <field type="text">
+                <name label="connectordisplayname">connectordisplayname</name>
+            </field>
+            <field type="text">
+                <name label="connectorname">connectorname</name>
+            </field>
+            <field type="text">
+                <name label="account">account</name>
+            </field>
+            <field type="text">
+                <name label="operation">operation</name>
+            </field>
+            <field type="text">
+                <name label="icon">icon</name>
+            </field>
+            <field type="text">
+                <name label="parametersdisplayname">parametersdisplayname</name>
+            </field>
+            <field type="text">
+                <name label="parametersname">parametersname</name>
+            </field>
+            <field type="text">
+                <name label="parameterseg">parameterseg</name>
+            </field>
+            <field type="text">
+                <name label="parametersvalue">parametersvalue</name>
+            </field>
+            <field type="text">
+                <name label="avroschema">avroschema</name>
+            </field>
+        </table>
+
+    </content>
+
+</artifactType>
+
