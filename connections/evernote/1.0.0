@@ -1,0 +1,11 @@
+{
+"name": "evernote",
+"attributes": {
+"overview_name": "evernote",
+"overview_version": "1.0.0",
+"overview_displayname": "Evernote",
+"overview_description": "Evernote Connection",
+"overview_authenticationType": "oauth1",
+"overview_thumbnail": "https://raw.githubusercontent.com/bsenduran/recipes/master/connections-images/twitter.png"
+}
+}

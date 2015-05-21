@@ -1,0 +1,61 @@
+<template xmlns="http://ws.apache.org/ns/synapse" name="SampleRecipe">
+	 <sequence onError="faultHandlerSeq">
+		    <evernote.init>
+		       <devToken>S=s582:U=654a99b:E=154c333cba2:C=14d6b829ec0:P=1cd:A=en-devtoken:V=2:H=c67623e6cad15254fe1118b58dc71cca</devToken>
+		       <noteStoreUrl>https://www.evernote.com/shard/s582/notestore</noteStoreUrl>
+		       <devTokenType>SANDBOX</devTokenType>
+		    </evernote.init>
+		    <evernote.findNotesMetaData>
+		       <ascending>true</ascending>
+		       <notebookGuid>f8adbf47-efb8-462f-8a75-8613c8014839</notebookGuid>
+		       <inactive>false</inactive>
+		       <offset>0</offset>
+		       <maxNotes>1</maxNotes>
+		       <includeTitle>true</includeTitle>
+		       <includeAttributes>true</includeAttributes>
+		    </evernote.findNotesMetaData>
+		    <log level="full"/>
+		    <property xmlns:evernote="http://wso2.org/evernote/adaptor"
+			      name="note_attributes"
+			      expression="//evernote:notes-metadata/evernote:note/evernote:attributes"/>
+		    <property xmlns:evernote="http://wso2.org/evernote/adaptor"
+			      name="note_title"
+			      expression="//evernote:notes-metadata/evernote:note/evernote:title"/>
+		    <script language="js">      
+		    	var att = mc.getProperty("note_attributes");         
+		     	print("Attributes :  " + att);
+				var remember_time = ((att.match(/\(([^)]+)\)/)[1]).split(new RegExp('[,]', 'g'))[1]).split(new RegExp('[:]', 'g'))[1]; 		
+				var date = new Date(parseInt(remember_time,10));
+				var formattedTime = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
+				var start = {date:formattedTime};
+				var end = {date: formattedTime};
+				mc.setPayloadJSON({
+		                        	"start": 
+					 				{
+		                            	"date": formattedTime
+		                        	}, 
+					 				"end":
+									{         
+										"date": formattedTime
+									}
+		                         });
+		    </script>
+		    <property name="end" expression="json-eval($.end)"/>
+		    <property name="start" expression="json-eval($.start)"/>
+		    <googlecalendar.init>
+		       <accessToken>ya29.eQFobTu71kfDyrA2lA3dHUoJZyMCmfZVnHWh_s3KJFysAfamjdCwBsAg3HMKjlBK-48i-Ev3ItOZYQ</accessToken>
+		       <apiUrl>https://www.googleapis.com</apiUrl>
+		    </googlecalendar.init>
+		    <googlecalendar.createEvent>
+		       <calendarId>nadeeshaangunasinghe90@gmail.com</calendarId>
+		       <description>This is Sample Event</description>
+		       <summary>{$ctx:note_title}</summary>
+		       <end>{$ctx:end}</end>
+		       <start>{$ctx:start}</start>
+		    </googlecalendar.createEvent>
+		    <log level="full"/>
+	 </sequence>
+</template>
+
+
+
