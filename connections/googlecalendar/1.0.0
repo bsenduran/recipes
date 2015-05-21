@@ -1,0 +1,11 @@
+{
+"name": "googlecalendar",
+"attributes": {
+"overview_name": "googlecalendar",
+"overview_version": "1.0.0",
+"overview_displayname": "Google Calendar",
+"overview_description": "Google Calendar Connection",
+"overview_authenticationType": "oauth2",
+"overview_thumbnail": "https://raw.githubusercontent.com/bsenduran/recipes/master/connections-images/twitter.png"
+}
+}
