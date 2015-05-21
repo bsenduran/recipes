@@ -4,14 +4,14 @@
         <version>1.0.0</version>
         <description>Sync Evernote and Google Calendar</description>
         <thumbnail>thumb.png</thumbnail>
-        <banner>banner.png</banner>
+        <banner>store-banner.png</banner>
     </overview>
 
     <ingredient>
         <connectordisplayname>Evernote</connectordisplayname>
         <connectorname>evernote</connectorname>
         <operation>Set Twitter Details</operation>
-        <icon>twitter.png</icon>
+        <icon>evernote.png</icon>
         <parametersdisplayname>Notebook GUID</parametersdisplayname>
         <parametersname>guid</parametersname>
         <parameterseg>SA8S</parameterseg>
@@ -22,7 +22,7 @@
         <connectordisplayname>Google Calendar</connectordisplayname>
         <connectorname>googlecalendar</connectorname>
         <operation>Set Google Calendar Details</operation>
-        <icon>gss.png</icon>
+        <icon>gcl.png</icon>
         <parametersdisplayname>Email</parametersdisplayname>
         <parametersname>email</parametersname>
         <parameterseg>me@gmail.com</parameterseg>
