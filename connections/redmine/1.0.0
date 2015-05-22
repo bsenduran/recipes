@@ -1,0 +1,11 @@
+{
+"name": "redmine",
+"attributes": {
+"overview_name": "redmine",
+"overview_version": "1.0.0",
+"overview_displayname": "Redmine",
+"overview_description": "Redmine Connection",
+"overview_authenticationType": "basic",
+"overview_thumbnail": "https://raw.githubusercontent.com/bsenduran/recipes/master/connections-images/redmine.png"
+}
+}
