@@ -7,7 +7,7 @@
     <parameter name="evernote.guid"/>
     <parameter name="googlecalendar.oauthConsumerKey"/>
     <parameter name="googlecalendar.oauthConsumerSecret"/>
-    <parameter name="googlecalendar.accessToken"/>
+    <parameter name="googlecalendar.oauthAccessToken"/>
     <parameter name="googlecalendar.oauthRefreshToken"/>
     <parameter name="googlecalendar.calendarId"/>
 	 <sequence>
@@ -54,7 +54,7 @@
 		    <property name="end" expression="json-eval($.end)"/>
 		    <property name="start" expression="json-eval($.start)"/>
 		    <googlecalendar.init>
-		       <accessToken>{get-property('func','googlecalendar.accessToken')}</accessToken>
+		       <accessToken>{get-property('func','googlecalendar.oauthAccessToken')}</accessToken>
 		       <apiUrl>https://www.googleapis.com</apiUrl>
 		    </googlecalendar.init>
 		    <googlecalendar.createEvent>
