@@ -1,13 +1,24 @@
 <template xmlns="http://ws.apache.org/ns/synapse" name="SampleRecipe">
-	 <sequence onError="faultHandlerSeq">
+	<parameter name="evernote.consumerKey"/>
+	<parameter name="evernote.consumerSecret"/>
+	<parameter name="evernote.devToken"/>
+    <parameter name="evernote.noteStoreUrl"/>
+    <parameter name="evernote.devTokenType"/>
+    <parameter name="evernote.guid"/>
+    <parameter name="googlecalendar.oauthConsumerKey"/>
+    <parameter name="googlecalendar.oauthConsumerSecret"/>
+    <parameter name="googlecalendar.accessToken"/>
+    <parameter name="googlecalendar.oauthRefreshToken"/>
+    <parameter name="googlecalendar.calendarId"/>
+	 <sequence>
 		    <evernote.init>
-		       <devToken>S=s582:U=654a99b:E=154c333cba2:C=14d6b829ec0:P=1cd:A=en-devtoken:V=2:H=c67623e6cad15254fe1118b58dc71cca</devToken>
-		       <noteStoreUrl>https://www.evernote.com/shard/s582/notestore</noteStoreUrl>
-		       <devTokenType>SANDBOX</devTokenType>
+		       <devToken>{get-property('func','evernote.devToken')}</devToken>
+		       <noteStoreUrl>{get-property('func','evernote.noteStoreUrl')}</noteStoreUrl>
+		       <devTokenType>{get-property('func','evernote.devTokenType')}</devTokenType>
 		    </evernote.init>
 		    <evernote.findNotesMetaData>
 		       <ascending>true</ascending>
-		       <notebookGuid>f8adbf47-efb8-462f-8a75-8613c8014839</notebookGuid>
+		       <notebookGuid>{get-property('func','evernote.guid')}</notebookGuid>
 		       <inactive>false</inactive>
 		       <offset>0</offset>
 		       <maxNotes>1</maxNotes>
@@ -43,11 +54,11 @@
 		    <property name="end" expression="json-eval($.end)"/>
 		    <property name="start" expression="json-eval($.start)"/>
 		    <googlecalendar.init>
-		       <accessToken>ya29.eQFobTu71kfDyrA2lA3dHUoJZyMCmfZVnHWh_s3KJFysAfamjdCwBsAg3HMKjlBK-48i-Ev3ItOZYQ</accessToken>
+		       <accessToken>{get-property('func','googlecalendar.accessToken')}</accessToken>
 		       <apiUrl>https://www.googleapis.com</apiUrl>
 		    </googlecalendar.init>
 		    <googlecalendar.createEvent>
-		       <calendarId>nadeeshaangunasinghe90@gmail.com</calendarId>
+		       <calendarId>{get-property('func','googlecalendar.calendarId')}</calendarId>
 		       <description>This is Sample Event</description>
 		       <summary>{$ctx:note_title}</summary>
 		       <end>{$ctx:end}</end>

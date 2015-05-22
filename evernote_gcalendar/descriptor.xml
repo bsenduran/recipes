@@ -24,7 +24,7 @@
         <operation>Set Google Calendar Details</operation>
         <icon>gcl.png</icon>
         <parametersdisplayname>Email</parametersdisplayname>
-        <parametersname>email</parametersname>
+        <parametersname>calendarId</parametersname>
         <parameterseg>me@gmail.com</parameterseg>
         <avroschema></avroschema>
     </result>
