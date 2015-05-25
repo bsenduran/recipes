@@ -11,7 +11,7 @@
     <parameter name="googlespreadsheet.oauthRefreshToken"/>
     <parameter name="googlespreadsheet.spreadsheetName"/>
     <parameter name="googlespreadsheet.worksheetName"/>
-    
+
     <sequence>
         <redmine.init>
             <username>{get-property('func','redmine.userName')}</username>
@@ -34,6 +34,7 @@
                     <script language="js">
                         var current_date = mc.getProperty("cur_date").split("-");
                         var due_date = mc.getProperty("due_date");
+                        var email_content = "Please be noted following Redmine task assigned to has been due\n";
 
                         if (due_date === null) {
                             mc.setProperty("is_due","false");
@@ -45,9 +46,11 @@
 
                             if ((cur_date_obj&gt;due_date_obj)&gt;0) {
                                 mc.setProperty("is_due","true");
+                                email_content+= "Project Name: " + mc.getProperty("project-name") + "\nIssue ID: " + mc.getProperty("issue-id") + "\nDescription: " + mc.getProperty("description");
+                                mc.setProperty("email_content",email_content);
                             }
                             else {
-                                mc.setProperty("is_due","true");
+                                mc.setProperty("is_due","false");
                             }
                         }
                     </script>
