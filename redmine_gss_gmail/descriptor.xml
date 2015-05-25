@@ -1,0 +1,43 @@
+<metadata>
+    <overview>
+        <name>Search overdue Redmine features then send Email and save in Spreadsheet</name>
+        <version>1.0.0</version>
+        <description>Search Redmine features and Send mail and Save</description>
+        <thumbnail>thumb.png</thumbnail>
+        <banner>banner.png</banner>
+    </overview>
+
+    <ingredient>
+        <connectordisplayname>Redmine</connectordisplayname>
+        <connectorname>redmine</connectorname>
+        <operation>Set Redmine Details</operation>
+        <icon>redmine.png</icon>
+        <parametersdisplayname></parametersdisplayname>
+        <parametersname></parametersname>
+        <parameterseg></parameterseg>
+        <avroschema>twitterschema.avsc</avroschema>
+    </ingredient>
+
+    <result>
+        <connectordisplayname>Google Spreadsheet</connectordisplayname>
+        <connectorname>googlespreadsheet</connectorname>
+        <operation>Set Spreadsheet Details</operation>
+        <icon>gss.png</icon>
+        <parametersdisplayname>Spreadsheet Name, Work Sheet Name</parametersdisplayname>
+        <parametersname>spreadsheetName,worksheetName</parametersname>
+        <parameterseg>Tweets,Sheet1</parameterseg>
+        <avroschema>schema.avsc</avroschema>
+    </result>
+
+    <result>
+        <connectordisplayname>Gmail</connectordisplayname>
+        <connectorname>gmail</connectorname>
+        <operation>Set Gmail Details</operation>
+        <icon>gmail.png</icon>
+        <parametersdisplayname>Subject,To</parametersdisplayname>
+        <parametersname>subject,to</parametersname>
+        <parameterseg>News Tweets,user@example.com</parameterseg>
+        <avroschema>schema.avsc</avroschema>
+    </result>
+
+</metadata>
