@@ -12,9 +12,9 @@
         <connectorname>redmine</connectorname>
         <operation>Set Redmine Details</operation>
         <icon>redmine.png</icon>
-        <parametersdisplayname></parametersdisplayname>
-        <parametersname></parametersname>
-        <parameterseg></parameterseg>
+        <parametersdisplayname>Status Id, Assigned to Id</parametersdisplayname>
+        <parametersname>statusId,assignedToId</parametersname>
+        <parameterseg>open,me</parameterseg>
         <avroschema>twitterschema.avsc</avroschema>
     </ingredient>
 
@@ -25,7 +25,7 @@
         <icon>gss.png</icon>
         <parametersdisplayname>Spreadsheet Name, Work Sheet Name</parametersdisplayname>
         <parametersname>spreadsheetName,worksheetName</parametersname>
-        <parameterseg>Tweets,Sheet1</parameterseg>
+        <parameterseg>Due Issues,Sheet1</parameterseg>
         <avroschema>schema.avsc</avroschema>
     </result>
 

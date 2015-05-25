@@ -1,23 +1,147 @@
 <template xmlns="http://ws.apache.org/ns/synapse" name="SampleRecipe">
-    <parameter name="twitter.consumerKey"/>
-    <parameter name="twitter.consumerSecret"/>
-    <parameter name="twitter.accessToken"/>
-    <parameter name="twitter.accessTokenSecret"/>
-    <parameter name="twitter.search"/>
-    <parameter name="twitter.lang"/>
-    <parameter name="twitter.count"/>
+    <parameter name="redmine.userName"/>
+    <parameter name="redmine.password"/>
+    <parameter name="gmail.userName"/>
+    <parameter name="gmail.oauthAccessToken"/>
+    <parameter name="gmail.subject"/>
+    <parameter name="gmail.to"/>
     <parameter name="googlespreadsheet.oauthConsumerKey"/>
     <parameter name="googlespreadsheet.oauthConsumerSecret"/>
     <parameter name="googlespreadsheet.oauthAccessToken"/>
     <parameter name="googlespreadsheet.oauthRefreshToken"/>
     <parameter name="googlespreadsheet.spreadsheetName"/>
     <parameter name="googlespreadsheet.worksheetName"/>
-    <parameter name="googlespreadsheet.batchEnable"/>
-    <parameter name="googlespreadsheet.batchSize"/>
-    <parameter name="gmail.username"/>
-    <parameter name="gmail.oauthAccessToken"/>
-    <parameter name="gmail.subject"/>
-    <parameter name="gmail.to"/>
+    
+    <sequence>
+        <redmine.init>
+            <username>{get-property('func','redmine.userName')}</username>
+            <password>{get-property('func','redmine.password')}</password>
+            <apiUrl>https://redmine.wso2.com</apiUrl>
+            <responseType>xml</responseType>
+        </redmine.init>
+        <redmine.listIssues>
+            <statusId>open</statusId>
+            <assignedToId>me</assignedToId>
+        </redmine.listIssues>
+        <property name="cur_date" expression="get-property('SYSTEM_DATE', 'yyyy-MM-dd')" scope="default"/>
+        <iterate continueParent="true" preservePayload="true" attachPath="//issues" expression="//issues/issue">
+            <target>
+                <sequence>
+                    <property name="issue-id" expression="//issues/issue/id"/>
+                    <property name="project-name" expression="//issues/issue/id/@name"/>
+                    <property name="description" expression="//issues/issue/description"/>
+                    <property name="due-date" expression="//issues/issue/due_date"/>
+                    <script language="js">
+                        var current_date = mc.getProperty("cur_date").split("-");
+                        var due_date = mc.getProperty("due_date");
+
+                        if (due_date === null) {
+                            mc.setProperty("is_due","false");
+                        }
+                        else{
+                            var due_date_arr = due_date.split("-");
+                            var due_date_obj = new Date(due_date_arr[0],due_date_arr[1],due_date_arr[2]);
+                            var cur_date_obj = new Date(current_date[0],current_date[1],current_date[2]);
+
+                            if ((cur_date_obj&gt;due_date_obj)&gt;0) {
+                                mc.setProperty("is_due","true");
+                            }
+                            else {
+                                mc.setProperty("is_due","true");
+                            }
+                        }
+                    </script>
+                    <gmail.init>
+                        <username>{get-property('func','gmail.userName')}</username>
+                        <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
+                    </gmail.init>
+                    <filter source="get-property('is_due')" regex="true">
+                        <then>
+                            <gmail.sendMail>
+                                <subject>{get-property('func','gmail.subject')}</subject>
+                                <toRecipients>{get-property('func','gmail.to')}</toRecipients>
+                                <textContent>Your tasks are due</textContent>
+                            </gmail.sendMail>
+                        </then>
+                    </filter>
+                </sequence>
+            </target>
+        </iterate>
+        <script language="js">
+            var current_date = mc.getProperty("cur_date").split("-");
+            var issues = mc.getPayloadXML().issue;
+            var returnCsv = "Issue_ID,Project_Name,Due_Date\n";
+
+            for(i=0;i&lt;issues.length();i++) {
+                var id = issues[i].id;
+                var name = issues[i].project.@name;
+                var due_date = issues[i].due_date;
+
+
+                if (due_date != null) {
+                    var due_date_arr = due_date.split("-");
+                    var due_date_obj = new Date(due_date_arr[0],due_date_arr[1],due_date_arr[2]);
+                    var cur_date_obj = new Date(current_date[0],current_date[1],current_date[2]);
+
+                    if ((cur_date_obj&gt;due_date_obj)&gt;0) {
+                        mc.setProperty("task_due","true");
+                        returnCsv=returnCsv+id+","+name+","+due_date+"\n";
+                    }
+                    else {
+                        mc.setProperty("task_due","false");
+                    }
+                }
+            }
+
+            mc.setPayloadXML(
+                &lt;text&gt;{returnCsv}&lt;/text&gt;
+            );
+        </script>
+        <log level="full"/>
+        <googlespreadsheet.oAuth2init>
+            <oauthConsumerKey>{get-property('func','googlespreadsheet.oauthConsumerKey')}</oauthConsumerKey>
+            <oauthConsumerSecret>{get-property('func','googlespreadsheet.oauthConsumerSecret')}</oauthConsumerSecret>
+            <oauthAccessToken>{get-property('func','googlespreadsheet.oauthAccessToken')}</oauthAccessToken>
+            <oauthRefreshToken>{get-property('func','googlespreadsheet.oauthRefreshToken')}</oauthRefreshToken>
+        </googlespreadsheet.oAuth2init>
+        <filter source="get-property('task_due')" regex="true">
+            <then>
+                <googlespreadsheet.importCSV>
+                    <spreadsheetName>{get-property('func','googlespreadsheet.spreadsheetName')}</spreadsheetName>
+                    <worksheetName>{get-property('func','googlespreadsheet.worksheetName')}</worksheetName>
+                    <batchEnable>true</batchEnable>
+                    <batchSize>10</batchSize>
+                </googlespreadsheet.importCSV>
+            </then>
+        </filter>
+        <respond/>
+    </sequence>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <sequence>
         <twitter.init>
             <consumerKey>{get-property('func','twitter.consumerKey')}</consumerKey>
