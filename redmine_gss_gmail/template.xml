@@ -1,6 +1,9 @@
 <template xmlns="http://ws.apache.org/ns/synapse" name="SampleRecipe">
     <parameter name="redmine.userName"/>
     <parameter name="redmine.password"/>
+    <parameter name="redmine.statusId"/>
+    <parameter name="redmine.assignedToId"/>
+    <parameter name="redmine.password"/>
     <parameter name="gmail.userName"/>
     <parameter name="gmail.oauthAccessToken"/>
     <parameter name="gmail.subject"/>
@@ -20,8 +23,8 @@
             <responseType>xml</responseType>
         </redmine.init>
         <redmine.listIssues>
-            <statusId>open</statusId>
-            <assignedToId>me</assignedToId>
+            <statusId>{get-property('func','redmine.statusId')}</statusId>
+            <assignedToId>{get-property('func','redmine.assignedToId')}</assignedToId>
         </redmine.listIssues>
         <property name="cur_date" expression="get-property('SYSTEM_DATE', 'yyyy-MM-dd')" scope="default"/>
         <iterate continueParent="true" preservePayload="true" attachPath="//issues" expression="//issues/issue">
@@ -74,8 +77,9 @@
             var current_date = mc.getProperty("cur_date").split("-");
             var issues = mc.getPayloadXML().issue;
             var returnCsv = "Issue_ID,Project_Name,Due_Date\n";
+            var length = issues.length();
 
-            for(i=0;i&lt;issues.length();i++) {
+            for(i=0;i<length;i++) {
                 var id = issues[i].id;
                 var name = issues[i].project.@name;
                 var due_date = issues[i].due_date;
@@ -121,6 +125,3 @@
         <respond/>
     </sequence>
 </template>
-
-
-
