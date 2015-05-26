@@ -122,6 +122,5 @@
                 </googlespreadsheet.importCSV>
             </then>
         </filter>
-        <respond/>
     </sequence>
 </template>
