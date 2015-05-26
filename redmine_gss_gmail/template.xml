@@ -1,10 +1,10 @@
 <template xmlns="http://ws.apache.org/ns/synapse" name="SampleRecipe">
-    <parameter name="redmine.userName"/>
+    <parameter name="redmine.username"/>
     <parameter name="redmine.password"/>
     <parameter name="redmine.statusId"/>
     <parameter name="redmine.assignedToId"/>
     <parameter name="redmine.password"/>
-    <parameter name="gmail.userName"/>
+    <parameter name="gmail.username"/>
     <parameter name="gmail.oauthAccessToken"/>
     <parameter name="gmail.subject"/>
     <parameter name="gmail.to"/>
@@ -17,7 +17,7 @@
 
     <sequence>
         <redmine.init>
-            <username>{get-property('func','redmine.userName')}</username>
+            <username>{get-property('func','redmine.username')}</username>
             <password>{get-property('func','redmine.password')}</password>
             <apiUrl>https://redmine.wso2.com</apiUrl>
             <responseType>xml</responseType>
@@ -58,7 +58,7 @@
                         }
                     ]]></script>
                     <gmail.init>
-                        <username>{get-property('func','gmail.userName')}</username>
+                        <username>{get-property('func','gmail.username')}</username>
                         <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
                     </gmail.init>
                     <filter source="get-property('is_due')" regex="true">
