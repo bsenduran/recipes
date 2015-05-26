@@ -31,7 +31,7 @@
                     <property name="project-name" expression="//issues/issue/id/@name"/>
                     <property name="description" expression="//issues/issue/description"/>
                     <property name="due-date" expression="//issues/issue/due_date"/>
-                    <script language="js">
+                    <script language="js"><![CDATA[
                         var current_date = mc.getProperty("cur_date").split("-");
                         var due_date = mc.getProperty("due_date");
                         var email_content = "Please be noted following Redmine task assigned to has been due\n";
@@ -44,7 +44,7 @@
                             var due_date_obj = new Date(due_date_arr[0],due_date_arr[1],due_date_arr[2]);
                             var cur_date_obj = new Date(current_date[0],current_date[1],current_date[2]);
 
-                            if ((cur_date_obj&gt;due_date_obj)&gt;0) {
+                            if ((cur_date_obj>due_date_obj)>0) {
                                 mc.setProperty("is_due","true");
                                 email_content+= "Project Name: " + mc.getProperty("project-name") + "\nIssue ID: " + mc.getProperty("issue-id") + "\nDescription: " + mc.getProperty("description");
                                 mc.setProperty("email_content",email_content);
@@ -53,7 +53,7 @@
                                 mc.setProperty("is_due","false");
                             }
                         }
-                    </script>
+                    ]]></script>
                     <gmail.init>
                         <username>{get-property('func','gmail.userName')}</username>
                         <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
@@ -70,7 +70,7 @@
                 </sequence>
             </target>
         </iterate>
-        <script language="js">
+        <script language="js"><![CDATA[
             var current_date = mc.getProperty("cur_date").split("-");
             var issues = mc.getPayloadXML().issue;
             var returnCsv = "Issue_ID,Project_Name,Due_Date\n";
@@ -86,7 +86,7 @@
                     var due_date_obj = new Date(due_date_arr[0],due_date_arr[1],due_date_arr[2]);
                     var cur_date_obj = new Date(current_date[0],current_date[1],current_date[2]);
 
-                    if ((cur_date_obj&gt;due_date_obj)&gt;0) {
+                    if ((cur_date_obj>due_date_obj)>0) {
                         mc.setProperty("task_due","true");
                         returnCsv=returnCsv+id+","+name+","+due_date+"\n";
                     }
@@ -97,8 +97,9 @@
             }
 
             mc.setPayloadXML(
-                &lt;text&gt;{returnCsv}&lt;/text&gt;
+                <text>{returnCsv}</text>
             );
+            ]]>
         </script>
         <log level="full"/>
         <googlespreadsheet.oAuth2init>
