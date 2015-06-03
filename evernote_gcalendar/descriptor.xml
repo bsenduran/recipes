@@ -4,7 +4,7 @@
         <version>1.0.0</version>
         <description>Sync Evernote and Google Calendar</description>
         <thumbnail>thumb.png</thumbnail>
-        <banner>store_banner.png</banner>
+        <banner>banner.png</banner>
     </overview>
 
     <ingredient>
