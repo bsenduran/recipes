@@ -30,6 +30,9 @@
         <iterate continueParent="true" preservePayload="true" attachPath="//issues" expression="//issues/issue">
             <target>
                 <sequence>
+                    <log level="custom">
+                        <property name="TESTING1----" value="GMAIL HIT1"></property>
+                    </log>
                     <property name="issue-id" expression="//issues/issue/id"/>
                     <property name="project-name" expression="//issues/issue/id/@name"/>
                     <property name="description" expression="//issues/issue/description"/>
