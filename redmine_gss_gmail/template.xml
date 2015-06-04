@@ -17,7 +17,7 @@
 
     <sequence>
         
-        log level="custom">
+        <log level="custom">
            <property name="TESTING333----" value="GMAIL HIT1" />
         </log>
         <redmine.init>
