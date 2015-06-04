@@ -78,7 +78,7 @@
                         <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
                     </gmail.init>
                     <log level="custom">
-                        <property name="TESTING-GMAI2L----" value="GMAIL HIT2" />
+                        <property name="TESTING-GMAI2L----" expression="get-property('is_due')" />
                     </log>
                     <filter source="get-property('is_due')" regex="true">
                         <then>
