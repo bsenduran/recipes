@@ -16,6 +16,10 @@
     <parameter name="googlespreadsheet.worksheetName"/>
 
     <sequence>
+        
+        log level="custom">
+           <property name="TESTING333----" value="GMAIL HIT1"></property>
+        </log>
         <redmine.init>
             <username>{get-property('func','redmine.username')}</username>
             <password>{get-property('func','redmine.password')}</password>
