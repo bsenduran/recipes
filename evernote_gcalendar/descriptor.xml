@@ -22,7 +22,7 @@
         <connectordisplayname>Google Calendar</connectordisplayname>
         <connectorname>googlecalendar</connectorname>
         <operation>Set Google Calendar Details</operation>
-        <icon>gcl.png</icon>
+        <icon>googlecalendar.png</icon>
         <parametersdisplayname>Email</parametersdisplayname>
         <parametersname>calendarId</parametersname>
         <parameterseg>me@gmail.com</parameterseg>
