@@ -63,6 +63,9 @@
                     </gmail.init>
                     <filter source="get-property('is_due')" regex="true">
                         <then>
+                            <log level="custom">
+                                <property name="TESTING-GMAIL----" value="GMAIL HIT"></property>
+                            </log>
                             <gmail.sendMail>
                                 <subject>{get-property('func','gmail.subject')}</subject>
                                 <toRecipients>{get-property('func','gmail.to')}</toRecipients>
