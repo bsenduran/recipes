@@ -57,10 +57,16 @@
                             }
                         }
                     ]]></script>
+                    <log level="custom">
+                        <property name="TESTING-GMAIL----" value="GMAIL HIT1"></property>
+                    </log>
                     <gmail.init>
                         <username>{get-property('func','gmail.username')}</username>
                         <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
                     </gmail.init>
+                    <log level="custom">
+                        <property name="TESTING-GMAIL----" value="GMAIL HIT2"></property>
+                    </log>
                     <filter source="get-property('is_due')" regex="true">
                         <then>
                             <log level="custom">
