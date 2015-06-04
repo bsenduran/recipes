@@ -18,7 +18,7 @@
     <sequence>
         
         log level="custom">
-           <property name="TESTING333----" value="GMAIL HIT1"></property>
+           <property name="TESTING333----" value="GMAIL HIT1" />
         </log>
         <redmine.init>
             <username>{get-property('func','redmine.username')}</username>
@@ -35,7 +35,7 @@
             <target>
                 <sequence>
                     <log level="custom">
-                        <property name="TESTING1----" value="GMAIL HIT1"></property>
+                        <property name="TESTING1----" value="GMAIL HIT1" />
                     </log>
                     <property name="issue-id" expression="//issues/issue/id"/>
                     <property name="project-name" expression="//issues/issue/id/@name"/>
@@ -70,19 +70,19 @@
                         }
                     ]]></script>
                     <log level="custom">
-                        <property name="TESTING-GMAIL1----" value="GMAIL HIT1"></property>
+                        <property name="TESTING-GMAIL1----" value="GMAIL HIT1" />
                     </log>
                     <gmail.init>
                         <username>{get-property('func','gmail.username')}</username>
                         <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
                     </gmail.init>
                     <log level="custom">
-                        <property name="TESTING-GMAI2L----" value="GMAIL HIT2"></property>
+                        <property name="TESTING-GMAI2L----" value="GMAIL HIT2" />
                     </log>
                     <filter source="get-property('is_due')" regex="true">
                         <then>
                             <log level="custom">
-                                <property name="TESTING-GMAIL----" value="GMAIL HIT"></property>
+                                <property name="TESTING-GMAIL----" value="GMAIL HIT" />
                             </log>
                             <gmail.sendMail>
                                 <subject>{get-property('func','gmail.subject')}</subject>
