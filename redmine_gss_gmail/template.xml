@@ -44,7 +44,6 @@
                     <script language="js"><![CDATA[
                         var current_date = mc.getProperty("cur_date").split("-");
                         var due_date = mc.getProperty("due_date");
-                        //var due_date = "2014-12-12";
                         var email_content = "Please be noted following Redmine task assigned to has been due\n";
                         
                         print("HIT-----1");
@@ -105,7 +104,6 @@
                 var id = issues[i].id;
                 var name = issues[i].project.@name;
                 var due_date = issues[i].due_date;
-                //var due_date = "2014-12-12";
 
 
                 if (due_date != null) {
