@@ -16,10 +16,6 @@
     <parameter name="googlespreadsheet.worksheetName"/>
 
     <sequence>
-        
-        <log level="custom">
-           <property name="TESTING333----" value="GMAIL HIT1" />
-        </log>
         <redmine.init>
             <username>{get-property('func','redmine.username')}</username>
             <password>{get-property('func','redmine.password')}</password>
@@ -31,59 +27,37 @@
             <assignedToId>{get-property('func','redmine.assignedToId')}</assignedToId>
         </redmine.listIssues>
         <property name="cur_date" expression="get-property('SYSTEM_DATE', 'yyyy-MM-dd')" scope="default"/>
+        <property name="is_due" value="false"/>
         <iterate continueParent="true" preservePayload="true" attachPath="//issues" expression="//issues/issue" sequential="true">
             <target>
                 <sequence>
-                    <log level="custom">
-                        <property name="TESTING1----" value="GMAIL HIT1" />
-                    </log>
                     <property name="issue-id" expression="//issues/issue/id"/>
                     <property name="project-name" expression="//issues/issue/id/@name"/>
                     <property name="description" expression="//issues/issue/description"/>
                     <property name="due-date" expression="//issues/issue/due_date"/>
                     <script language="js"><![CDATA[
                         var current_date = mc.getProperty("cur_date").split("-");
-                        var due_date = mc.getProperty("due_date");
+                        var due_date = mc.getProperty("due-date");
                         var email_content = "Please be noted following Redmine task assigned to has been due\n";
                         
-                        print("HIT-----1");
-                        if (due_date === null) {
-                            mc.setProperty("is_due","false");
-                            print("HIT-----2");
-                        }
-                        else{
+                        if (due_date != "<due_date/>") {
                             var due_date_arr = due_date.split("-");
                             var due_date_obj = new Date(due_date_arr[0],due_date_arr[1],due_date_arr[2]);
                             var cur_date_obj = new Date(current_date[0],current_date[1],current_date[2]);
-                            print("HIT-----3");
 
                             if ((cur_date_obj>due_date_obj)>0) {
-                                print("HIT-----4");
                                 mc.setProperty("is_due","true");
                                 email_content+= "Project Name: " + mc.getProperty("project-name") + "\nIssue ID: " + mc.getProperty("issue-id") + "\nDescription: " + mc.getProperty("description");
                                 mc.setProperty("email_content",email_content);
                             }
-                            else {
-                                print("HIT-----5");
-                                mc.setProperty("is_due","false");
-                            }
                         }
                     ]]></script>
-                    <log level="custom">
-                        <property name="TESTING-GMAIL1----" value="GMAIL HIT1" />
-                    </log>
                     <gmail.init>
                         <username>{get-property('func','gmail.username')}</username>
                         <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
                     </gmail.init>
-                    <log level="custom">
-                        <property name="TESTING-GMAI2L----" expression="get-property('is_due')" />
-                    </log>
                     <filter source="get-property('is_due')" regex="true">
                         <then>
-                            <log level="custom">
-                                <property name="TESTING-GMAIL----" value="GMAIL HIT" />
-                            </log>
                             <gmail.sendMail>
                                 <subject>{get-property('func','gmail.subject')}</subject>
                                 <toRecipients>{get-property('func','gmail.to')}</toRecipients>
@@ -99,12 +73,12 @@
             var issues = mc.getPayloadXML().issue;
             var returnCsv = "Issue_ID,Project_Name,Due_Date\n";
             var length = issues.length();
+            mc.setProperty("task_due","false");
 
             for(i=0;i<length;i++) {
                 var id = issues[i].id;
                 var name = issues[i].project.@name;
                 var due_date = issues[i].due_date;
-
 
                 if (due_date != null) {
                     var due_date_arr = due_date.split("-");
@@ -114,9 +88,6 @@
                     if ((cur_date_obj>due_date_obj)>0) {
                         mc.setProperty("task_due","true");
                         returnCsv=returnCsv+id+","+name+","+due_date+"\n";
-                    }
-                    else {
-                        mc.setProperty("task_due","false");
                     }
                 }
             }
