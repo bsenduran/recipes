@@ -31,7 +31,7 @@
             <assignedToId>{get-property('func','redmine.assignedToId')}</assignedToId>
         </redmine.listIssues>
         <property name="cur_date" expression="get-property('SYSTEM_DATE', 'yyyy-MM-dd')" scope="default"/>
-        <iterate continueParent="true" preservePayload="true" attachPath="//issues" expression="//issues/issue">
+        <iterate continueParent="true" preservePayload="true" attachPath="//issues" expression="//issues/issue" sequential="true">
             <target>
                 <sequence>
                     <log level="custom">
