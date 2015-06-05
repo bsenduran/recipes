@@ -61,7 +61,7 @@
                             <gmail.sendMail>
                                 <subject>{get-property('func','gmail.subject')}</subject>
                                 <toRecipients>{get-property('func','gmail.to')}</toRecipients>
-                                <textContent>Your tasks are due</textContent>
+                                <textContent>{get-property('email_content')}</textContent>
                             </gmail.sendMail>
                         </then>
                     </filter>
