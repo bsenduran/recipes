@@ -26,7 +26,6 @@
         <parametersdisplayname>Spreadsheet Name, Work Sheet Name</parametersdisplayname>
         <parametersname>spreadsheetName,worksheetName</parametersname>
         <parameterseg>Due Issues,Sheet1</parameterseg>
-        <avroschema>schema.avsc</avroschema>
     </result>
 
     <result>
