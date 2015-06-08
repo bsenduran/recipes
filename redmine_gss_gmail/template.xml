@@ -32,7 +32,7 @@
             <target>
                 <sequence>
                     <property name="issue-id" expression="//issues/issue/id"/>
-                    <property name="project-name" expression="//issues/issue/id/@name"/>
+                    <property name="project-name" expression="//issues/issue/project/@name"/>
                     <property name="description" expression="//issues/issue/description"/>
                     <property name="due-date" expression="//issues/issue/due_date"/>
                     <script language="js"><![CDATA[
@@ -52,6 +52,18 @@
                             }
                         }
                     ]]></script>
+                    <payloadFactory media-type="xml">
+                        <format>
+                            <message xmlns="">
+                                <project_name>$1</project_name>
+                                <issue_id>$2</issue_id>
+                            </message>
+                        </format>
+                        <args>
+                            <arg expression="get-property('project-name')" evaluator="xml"/>
+                            <arg expression="get-property('issue-id')" evaluator="xml"/>
+                        </args>
+                    </payloadFactory>
                     <gmail.init>
                         <username>{get-property('func','gmail.username')}</username>
                         <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
