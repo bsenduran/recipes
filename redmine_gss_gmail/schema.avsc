@@ -3,7 +3,8 @@
 "name": "SynapseDataType",
 "fields": [
 	{"name": "out",  "type":{ "type": "xml", "name": "OutputType", "fields": [
-                                                                         	{"name": "project_name",  "type": "string"}
+                                                                         	{"name": "project_name",  "type": "string"},
+                                                                         	{"name": "issue_id",  "type": "string"}
                                                                        	]}}
   ]
 }
