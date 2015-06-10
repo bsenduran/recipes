@@ -31,7 +31,7 @@
 
     <result>
         <connectordisplayname>Gmail</connectordisplayname>
-        <connectorname>gmailRest</connectorname>
+        <connectorname>gmail</connectorname>
         <operation>Set Gmail Details</operation>
         <icon>gmail.png</icon>
         <parametersdisplayname>Subject,To</parametersdisplayname>
