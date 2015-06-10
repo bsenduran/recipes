@@ -6,8 +6,11 @@
     <parameter name="redmine.password"/>
     <parameter name="gmail.username"/>
     <parameter name="gmail.oauthAccessToken"/>
+    <parameter name="gmail.oauthConsumerKey"/>
+    <parameter name="gmail.oauthConsumerSecret"/>
+    <parameter name="gmail.oauthRefreshToken"/>
     <parameter name="gmail.subject"/>
-    <parameter name="gmail.to"/>
+    <parameter name="gmail.to"/>    
     <parameter name="googlespreadsheet.oauthConsumerKey"/>
     <parameter name="googlespreadsheet.oauthConsumerSecret"/>
     <parameter name="googlespreadsheet.oauthAccessToken"/>
@@ -64,17 +67,20 @@
                             <arg expression="get-property('issue-id')" evaluator="xml"/>
                         </args>
                     </payloadFactory>
-                    <gmail.init>
+                    <gmailRest.init>
                         <username>{get-property('func','gmail.username')}</username>
                         <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
-                    </gmail.init>
+                        <consumerKey>{get-property('func','gmail.oauthConsumerKey')}</consumerKey>
+                        <consumerSecret>{get-property('func','gmail.oauthConsumerSecret')}</consumerSecret>
+                        <refreshToken>{get-property('func','gmail.oauthRefreshToken')}</refreshToken>
+                    </gmailRest.init>
                     <filter source="get-property('is_due')" regex="true">
                         <then>
-                            <gmail.sendMail>
+                            <gmailRest.createAMail>
+                                <to>{get-property('func','gmail.to')}</to>
                                 <subject>{get-property('func','gmail.subject')}</subject>
-                                <toRecipients>{get-property('func','gmail.to')}</toRecipients>
-                                <textContent>{get-property('email_content')}</textContent>
-                            </gmail.sendMail>
+                                <messageBody>{get-property('email_content')}</messageBody>
+                            </gmailRest.createAMail>
                         </then>
                     </filter>
                 </sequence>
