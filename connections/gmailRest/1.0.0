@@ -1,0 +1,11 @@
+{
+"name": "gmailRest",
+"attributes": {
+"overview_name": "gmailRest",
+"overview_version": "1.0.0",
+"overview_displayname": "GMail",
+"overview_description": "Google Mail Connection",
+"overview_authenticationType": "oauth2",
+"overview_thumbnail": "https://raw.githubusercontent.com/bsenduran/recipes/master/connections-images/gmail.png"
+}
+}
