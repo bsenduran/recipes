@@ -4,13 +4,13 @@
     <parameter name="redmine.statusId"/>
     <parameter name="redmine.assignedToId"/>
     <parameter name="redmine.password"/>
-    <parameter name="gmail.username"/>
-    <parameter name="gmail.oauthAccessToken"/>
-    <parameter name="gmail.oauthConsumerKey"/>
-    <parameter name="gmail.oauthConsumerSecret"/>
-    <parameter name="gmail.oauthRefreshToken"/>
-    <parameter name="gmail.subject"/>
-    <parameter name="gmail.to"/>    
+    <parameter name="gmailRest.username"/>
+    <parameter name="gmailRest.oauthAccessToken"/>
+    <parameter name="gmailRest.oauthConsumerKey"/>
+    <parameter name="gmailRest.oauthConsumerSecret"/>
+    <parameter name="gmailRest.oauthRefreshToken"/>
+    <parameter name="gmailRest.subject"/>
+    <parameter name="gmailRest.to"/>    
     <parameter name="googlespreadsheet.oauthConsumerKey"/>
     <parameter name="googlespreadsheet.oauthConsumerSecret"/>
     <parameter name="googlespreadsheet.oauthAccessToken"/>
@@ -68,19 +68,19 @@
                         </args>
                     </payloadFactory>
                     <gmailRest.init>
-                        <username>{get-property('func','gmail.username')}</username>
-                        <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
-                        <consumerKey>{get-property('func','gmail.oauthConsumerKey')}</consumerKey>
-                        <consumerSecret>{get-property('func','gmail.oauthConsumerSecret')}</consumerSecret>
-                        <refreshToken>{get-property('func','gmail.oauthRefreshToken')}</refreshToken>
+                        <username>{get-property('func','gmailRest.username')}</username>
+                        <oauthAccessToken>{get-property('func','gmailRest.oauthAccessToken')}</oauthAccessToken>
+                        <consumerKey>{get-property('func','gmailRest.oauthConsumerKey')}</consumerKey>
+                        <consumerSecret>{get-property('func','gmailRest.oauthConsumerSecret')}</consumerSecret>
+                        <refreshToken>{get-property('func','gmailRest.oauthRefreshToken')}</refreshToken>
                     </gmailRest.init>
                     <filter source="get-property('is_due')" regex="true">
                         <then>
-                            <gmailRest.createAMail>
-                                <to>{get-property('func','gmail.to')}</to>
-                                <subject>{get-property('func','gmail.subject')}</subject>
-                                <messageBody>{get-property('email_content')}</messageBody>
-                            </gmailRest.createAMail>
+                            <gmailRest.sendMailWithAttachment>
+                                <toRecipients>{get-property('func','gmailRest.to')}</toRecipients>
+                                <subject>{get-property('func','gmailRest.subject')}</subject>
+                                <textContent>{get-property('email_content')}</textContent>
+                            </gmailRest.sendMailWithAttachment>
                         </then>
                     </filter>
                 </sequence>
