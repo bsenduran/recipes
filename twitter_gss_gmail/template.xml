@@ -14,10 +14,13 @@
     <parameter name="googlespreadsheet.worksheetName"/>
     <parameter name="googlespreadsheet.batchEnable"/>
     <parameter name="googlespreadsheet.batchSize"/>
-    <parameter name="gmail.username"/>
-    <parameter name="gmail.oauthAccessToken"/>
-    <parameter name="gmail.subject"/>
-    <parameter name="gmail.to"/>
+    <parameter name="gmailRest.username"/>
+    <parameter name="gmailRest.oauthAccessToken"/>
+    <parameter name="gmailRest.oauthConsumerKey"/>
+    <parameter name="gmailRest.oauthConsumerSecret"/>
+    <parameter name="gmailRest.oauthRefreshToken"/>
+    <parameter name="gmailRest.subject"/>
+    <parameter name="gmailRest.to"/>  
     <sequence>
         <twitter.init>
             <consumerKey>{get-property('func','twitter.consumerKey')}</consumerKey>
@@ -58,15 +61,28 @@
             </target>
             <target>
                 <sequence>
-                    <gmail.init>
+                    <!--gmail.init>
                         <username>{get-property('func','gmail.username')}</username>
                         <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
-                    </gmail.init>
-                    <gmail.sendMail>
+                    </gmail.init-->
+                    <!--gmail.sendMail>
                         <subject>{get-property('func','gmail.subject')}</subject>
                         <toRecipients>{get-property('func','gmail.to')}</toRecipients>
                         <textContent>{$ctx:TEXT_BODY}</textContent>
-                    </gmail.sendMail>
+                    </gmail.sendMail-->
+                    
+                    <gmailRest.init>
+                        <username>{get-property('func','gmailRest.username')}</username>
+                        <oauthAccessToken>{get-property('func','gmailRest.oauthAccessToken')}</oauthAccessToken>
+                        <consumerKey>{get-property('func','gmailRest.oauthConsumerKey')}</consumerKey>
+                        <consumerSecret>{get-property('func','gmailRest.oauthConsumerSecret')}</consumerSecret>
+                        <refreshToken>{get-property('func','gmailRest.oauthRefreshToken')}</refreshToken>
+                    </gmailRest.init>
+                    <gmailRest.sendMailWithAttachment>
+                        <toRecipients>{get-property('func','gmailRest.to')}</toRecipients>
+                        <subject>{get-property('func','gmailRest.subject')}</subject>
+                        <textContent>{$ctx:TEXT_BODY}</textContent>
+                    </gmailRest.sendMailWithAttachment>
                 </sequence>
             </target>
         </clone>
