@@ -20,7 +20,7 @@
 
     <result>
         <connectordisplayname>Gmail</connectordisplayname>
-        <connectorname>gmail</connectorname>
+        <connectorname>gmailRest</connectorname>
         <operation>Set Gmail Details</operation>
         <icon>gmail.png</icon>
         <parametersdisplayname>Subject,To</parametersdisplayname>
