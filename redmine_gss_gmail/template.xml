@@ -11,6 +11,7 @@
     <parameter name="gmailRest.oauthRefreshToken"/>
     <parameter name="gmailRest.subject"/>
     <parameter name="gmailRest.to"/>    
+    <parameter name="googlespreadsheet.username"/>
     <parameter name="googlespreadsheet.oauthConsumerKey"/>
     <parameter name="googlespreadsheet.oauthConsumerSecret"/>
     <parameter name="googlespreadsheet.oauthAccessToken"/>
@@ -117,6 +118,7 @@
         </script>
         <log level="full"/>
         <googlespreadsheet.oAuth2init>
+            <username>{get-property('func','googlespreadsheet.username')}</username>
             <oauthConsumerKey>{get-property('func','googlespreadsheet.oauthConsumerKey')}</oauthConsumerKey>
             <oauthConsumerSecret>{get-property('func','googlespreadsheet.oauthConsumerSecret')}</oauthConsumerSecret>
             <oauthAccessToken>{get-property('func','googlespreadsheet.oauthAccessToken')}</oauthAccessToken>
