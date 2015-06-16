@@ -6,6 +6,7 @@
     <parameter name="twitter.search"/>
     <parameter name="twitter.lang"/>
     <parameter name="twitter.count"/>
+    <parameter name="googlespreadsheet.username"/>
     <parameter name="googlespreadsheet.oauthConsumerKey"/>
     <parameter name="googlespreadsheet.oauthConsumerSecret"/>
     <parameter name="googlespreadsheet.oauthAccessToken"/>
@@ -44,6 +45,7 @@
             <target>
                 <sequence>
                     <googlespreadsheet.oAuth2init>
+                        <username>{get-property('func','googlespreadsheet.username')}</username>
                         <oauthConsumerKey>{get-property('func','googlespreadsheet.oauthConsumerKey')}</oauthConsumerKey>
                         <oauthConsumerSecret>{get-property('func','googlespreadsheet.oauthConsumerSecret')}
                         </oauthConsumerSecret>
