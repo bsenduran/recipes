@@ -1,0 +1,18 @@
+<aspect name="DishLifeCycle" class="org.wso2.carbon.governance.registry.extensions.aspects.DefaultLifeCycle">
+	<configuration type="literal">
+		<lifecycle>
+			<scxml xmlns="http://www.w3.org/2005/07/scxml" version="1.0" initialstate="Incomplete">
+				<state id='Incomplete'>
+                    <transition event="Activate" target="Active"/>
+                </state>
+                <state id='Active'>
+                    <transition event="Deactivate" target="Deactive"/>
+                    <transition event="Activate" target="Active"/>
+                </state>
+                <state id='Deactive'>
+                    <transition event="Activate" target="Active"/>
+                </state>
+			</scxml>
+		</lifecycle>
+	</configuration>
+</aspect>
