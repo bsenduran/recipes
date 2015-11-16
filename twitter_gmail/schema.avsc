@@ -3,7 +3,7 @@
 "name": "SynapseDataType",
 "fields": [
 	{"name": "out",  "type":{ "type": "xml", "name": "OutputType", "fields": [
-                                                                         	{"name": "query",  "type": "string"}
+                                                                         	{"name": "search_query",  "type": "string"}
                                                                        	]}}
   ]
 }
