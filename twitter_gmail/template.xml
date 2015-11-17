@@ -44,7 +44,7 @@
         <payloadFactory media-type="xml">
             <format>
                 <message xmlns="">
-                    <query>$1</query>
+                    <search_query>$1</search_query>
                 </message>
             </format>
             <args>
