@@ -27,6 +27,27 @@
             <lang>{get-property('func','twitter.lang')}</lang>
             <count>{get-property('func','twitter.count')}</count>
         </twitter.search>
+        <property name="twitter_hashtag" expression="//jsonObject/search_metadata/query/text()" scope="default" type="STRING"/>
+
+        <!-- for typeaware in JSON 
+        <payloadFactory media-type="json">
+              <format>{"query":"$1"}</format>
+              <args>
+                 <arg expression="get-property('twitter_hashtag')" evaluator="xml"/>
+              </args>
+        </payloadFactory>
+        -->
+        <!-- for typeaware in XML -->
+        <payloadFactory media-type="xml">
+            <format>
+                <message xmlns="">
+                    <search_query>$1</search_query>
+                </message>
+            </format>
+            <args>
+               <arg expression="get-property('twitter_hashtag')" evaluator="xml"/>
+            </args>
+        </payloadFactory>
         <xslt key="gov:/recipeTransformations/twitter_gss_transformation"/>
         <log level="full"/>
         <googlespreadsheet.oAuth2init>
