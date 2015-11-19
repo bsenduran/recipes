@@ -39,17 +39,7 @@
         </payloadFactory>
         -->
         <!-- for typeaware in XML -->
-        <payloadFactory media-type="xml">
-            <format>
-                <message xmlns="">
-                    <search_query>$1</search_query>
-                </message>
-            </format>
-            <args>
-               <arg expression="get-property('twitter_hashtag')" evaluator="xml"/>
-            </args>
-        </payloadFactory>
-        <log level="full"/>
+        
         <googlespreadsheet.oAuth2init>
             <username>{get-property('func','googlespreadsheet.username')}</username>
             <oauthConsumerKey>{get-property('func','googlespreadsheet.oauthConsumerKey')}</oauthConsumerKey>
