@@ -25,10 +25,30 @@
             <lang>{get-property('func','twitter.lang')}</lang>
             <count>{get-property('func','twitter.count')}</count>
         </twitter.search>
+
+        <property name="email_content" value="" scope="operation"/>
+        <iterate continueParent="true" expression="//jsonObject/statuses" sequential="true">
+            <target>
+                <sequence>
+                    <property name="userName" expression="//statuses/user/name/text()" type="STRING"></property>
+                    <property name="tweet" expression="//statuses/text/text()" type="STRING"></property>
+                    <property name="content" expression="get-property('operation', 'email_content')"/>
+
+                    <script language="js"><![CDATA[
+                        var email_cnt = mc.getProperty("content");
+                        email_cnt = email_cnt + "User Name: " + mc.getProperty("userName") + "\nTweet: " + mc.getProperty("tweet") + "\n------------------------------------------- \n";
+                        mc.setProperty('content',email_cnt);
+                    ]]></script>
+                    <property name="email_content" expression="get-property('content')" scope="operation"/>
+                        
+                    </sequence>
+                </target>
+        </iterate>
+
         <property name="twitter_hashtag" expression="//jsonObject/search_metadata/query/text()" scope="default" type="STRING"/>
-        <xslt key="gov:/recipeTransformations/twitter_gmail_transformation"/>
+        
         <!--  <log level="full"/> -->
-        <property name="TEXT_BODY" expression="//soapenv:Body/ns1:text" xmlns:ns1="http://ws.apache.org/commons/ns/payload" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"/>
+        <property name="TEXT_BODY" expression="get-property('operation','email_content')" xmlns:ns1="http://ws.apache.org/commons/ns/payload" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"/>
         <log level="custom">
             <property name="TEXT_BODY" expression="get-property('TEXT_BODY')"/>
         </log>
@@ -51,11 +71,6 @@
                <arg expression="get-property('twitter_hashtag')" evaluator="xml"/>
             </args>
         </payloadFactory>
-        <log level="full"></log>
-        <!--gmail.init>
-            <username>{get-property('func','gmail.username')}</username>
-            <oauthAccessToken>{get-property('func','gmail.oauthAccessToken')}</oauthAccessToken>
-        </gmail.init-->
 
         <gmailRest.init>
             <username>{get-property('func','gmailRest.username')}</username>
@@ -64,11 +79,6 @@
             <consumerSecret>{get-property('func','gmailRest.oauthConsumerSecret')}</consumerSecret>
             <refreshToken>{get-property('func','gmailRest.oauthRefreshToken')}</refreshToken>
         </gmailRest.init>
-        <!--gmail.sendMail>
-            <subject>{get-property('func','gmail.subject')}</subject>
-            <toRecipients>{get-property('func','gmail.to')}</toRecipients>
-            <textContent>{$ctx:TEXT_BODY}</textContent>
-        </gmail.sendMail-->
         <gmailRest.sendMailWithAttachment>
             <toRecipients>{get-property('func','gmailRest.to')}</toRecipients>
             <subject>{get-property('func','gmailRest.subject')}</subject>
